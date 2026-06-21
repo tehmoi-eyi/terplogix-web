@@ -239,6 +239,29 @@ export function LandingPage() {
     };
   }, [shouldReduceMotion]);
 
+  useEffect(() => {
+    const scrollToHash = () => {
+      const id = window.location.hash.slice(1);
+      if (!id) return;
+
+      const target = document.getElementById(decodeURIComponent(id));
+      if (!target) return;
+
+      const navHeight = document.querySelector("nav")?.getBoundingClientRect().height ?? 80;
+      const top = window.scrollY + target.getBoundingClientRect().top - navHeight - 36;
+      window.scrollTo({ top, behavior: "auto" });
+    };
+
+    scrollToHash();
+    const settleTimer = window.setTimeout(scrollToHash, 750);
+    window.addEventListener("hashchange", scrollToHash);
+
+    return () => {
+      window.clearTimeout(settleTimer);
+      window.removeEventListener("hashchange", scrollToHash);
+    };
+  }, []);
+
   return (
     <main className="min-h-screen overflow-hidden bg-tlx-radial text-frost">
       <Navbar />
@@ -2621,39 +2644,74 @@ function SyncedDisplaySection() {
 
 function SyncedDisplayMockup() {
   const surfaces = [
-    ["Menu board", "Live on Menu"],
-    ["Signage", "Print Ready"],
-    ["Kiosk", "Available"],
-    ["Discover", "Featured"],
-    ["Explore", "Synced"]
-  ];
+    ["Sample Library", "Visible in Explore", "/proof/sample-library-sanitized.png", Layers3],
+    ["Kiosk", "Available now", "/proof/kiosk-goals-selected.png", TabletSmartphone],
+    ["Print card", "Print ready", "/proof/printable-straincard-card.png", Printer],
+    ["Explore detail", "Product fit synced", "/proof/explore-product-detail-cutout.png", Eye]
+  ] as const;
 
   return (
-    <div className="glass relative overflow-hidden rounded-3xl p-6">
-      <div className="absolute inset-0 soft-grid opacity-30" />
-      <div className="relative grid gap-4 md:grid-cols-[0.8fr_1fr]">
-        <div className="rounded-2xl border border-cyan-tlx/25 bg-cyan-tlx/8 p-5">
-          <MiniStatus title="Inventory source" value="Flower Profile" icon={Boxes} />
+    <div className="glass relative overflow-hidden rounded-[2rem] p-5 sm:p-6">
+      <div className="absolute inset-0 soft-grid opacity-25" />
+      <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-cyan-tlx/[0.12] blur-3xl" />
+      <div className="relative grid gap-5 xl:grid-cols-[0.62fr_1.38fr]">
+        <div className="rounded-[1.6rem] border border-cyan-tlx/25 bg-[linear-gradient(145deg,rgba(0,215,232,0.1),rgba(255,255,255,0.035))] p-5">
+          <MiniStatus title="Inventory source" value="Live flower profile" icon={Boxes} />
           <div className="mt-5 space-y-3">
-            {["Available", "Low Stock", "Hidden", "Featured"].map((item, index) => (
-              <div key={item} className="flex items-center justify-between rounded-xl bg-black/20 px-3 py-3 text-sm">
-                <span className="text-slate-300">{item}</span>
-                <span className={`h-3 w-3 rounded-full ${index === 0 ? "bg-cyan-tlx" : index === 1 ? "bg-signal" : index === 2 ? "bg-white/25" : "bg-violet-tlx"} ${index < 2 ? "pulse-soft" : ""}`} />
+            {[
+              ["Available", "on floor", "bg-cyan-tlx"],
+              ["Low stock", "watch", "bg-signal"],
+              ["Hidden", "rules", "bg-white/30"],
+              ["Featured", "promoted", "bg-violet-tlx"]
+            ].map(([item, label, color], index) => (
+              <div key={item} className="flex items-center justify-between rounded-xl border border-white/10 bg-black/20 px-3 py-3 text-sm">
+                <span className="font-semibold text-slate-200">{item}</span>
+                <span className="flex items-center gap-2 text-xs uppercase tracking-[0.12em] text-muted">
+                  {label}
+                  <span className={`h-3 w-3 rounded-full ${color} ${index < 2 ? "pulse-soft" : ""}`} />
+                </span>
               </div>
             ))}
           </div>
+          <div className="mt-5 rounded-2xl border border-cyan-tlx/20 bg-cyan-tlx/[0.08] p-4">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cyan-tlx">Visibility rule</p>
+            <p className="mt-2 text-sm leading-6 text-cyan-50">When availability changes, TLX keeps customer, staff, print, and display surfaces pointed at the same product truth.</p>
+          </div>
         </div>
         <div className="grid gap-3 sm:grid-cols-2">
-          {surfaces.map(([surface, status], index) => (
-            <div key={surface} className="rounded-2xl border border-white/10 bg-white/[0.045] p-4">
-              <p className="text-sm font-semibold text-white">{surface}</p>
-              <p className="mt-1 text-xs text-muted">{status}</p>
-              <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-white/10">
-                <div className="h-full rounded-full bg-gradient-to-r from-cyan-tlx to-violet-tlx" style={{ width: `${82 - index * 6}%` }} />
-              </div>
-            </div>
+          {surfaces.map(([surface, status, src, Icon], index) => (
+            <VisibilitySurfaceTile key={surface} title={surface} status={status} src={src} icon={Icon} index={index} />
           ))}
         </div>
+      </div>
+    </div>
+  );
+}
+
+function VisibilitySurfaceTile({ title, status, src, icon: Icon, index }: { title: string; status: string; src: string; icon: IconComponent; index: number }) {
+  return (
+    <div className="group overflow-hidden rounded-[1.35rem] border border-white/10 bg-white/[0.045] p-3 transition-[transform,border-color,background-color] duration-200 hover:-translate-y-0.5 hover:border-cyan-tlx/35 hover:bg-cyan-tlx/[0.055]">
+      <div className="mb-3 flex items-center justify-between gap-3 px-1">
+        <div>
+          <p className="text-sm font-semibold text-white">{title}</p>
+          <p className="mt-1 text-xs text-muted">{status}</p>
+        </div>
+        <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-cyan-tlx/20 bg-cyan-tlx/[0.08] text-cyan-tlx">
+          <Icon className="h-5 w-5" />
+        </span>
+      </div>
+      <div className="h-36 overflow-hidden rounded-xl border border-white/10 bg-[#050914]">
+        <Image
+          src={src}
+          alt={`${title} synchronized TLX surface`}
+          width={900}
+          height={700}
+          unoptimized
+          className={`h-full w-full ${index === 2 ? "object-contain" : "object-cover object-top"}`}
+        />
+      </div>
+      <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-white/10">
+        <div className="h-full rounded-full bg-gradient-to-r from-cyan-tlx to-violet-tlx" style={{ width: `${88 - index * 7}%` }} />
       </div>
     </div>
   );
@@ -2725,41 +2783,101 @@ function IntegrationSection() {
         <div className="space-y-5">
           <p className="text-3xl font-semibold text-white">Rosetta understands different systems so operators do not have to rebuild their workflow around TLX.</p>
           <p className="leading-7 text-muted">
-            Provider-neutral by design, Rosetta is built around schema interpretation, simulated provider environments, mock POS data shapes, multi-store context, and a future integration foundation.
+            Provider-neutral by design, Rosetta is built around schema interpretation, sandbox provider environments, POS data shapes, multi-store context, and a future integration foundation.
           </p>
           <div className="grid gap-3 sm:grid-cols-2">
-            {["Provider-aware", "Schema-based", "Mock provider testing", "Multi-store context", "Designed to support integrations", "Normalized TLX language"].map((item) => (
+            {["Provider-aware", "Schema-based", "Sandbox validation", "Multi-store context", "Designed to support integrations", "Normalized TLX language"].map((item) => (
               <span key={item} className="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-slate-300">{item}</span>
             ))}
           </div>
         </div>
-        <div className="glass relative min-h-[420px] overflow-hidden rounded-3xl p-6">
-          <div className="absolute inset-0 soft-grid opacity-35" />
-          <div className="relative flex h-full items-center justify-center">
-            <div className="scanline z-10 flex h-40 w-40 items-center justify-center rounded-full border border-cyan-tlx/35 bg-cyan-tlx/10 text-center shadow-glow">
-              <div>
-                <DatabaseZap className="mx-auto h-9 w-9 text-cyan-tlx" />
-                <p className="mt-2 text-lg font-semibold text-white">Rosetta</p>
-              </div>
+        <RosettaTranslationPanel />
+      </div>
+    </Section>
+  );
+}
+
+function RosettaTranslationPanel() {
+  const packets = [
+    ["COA", "THC, CBD, terpene fields", FileText],
+    ["POS", "Product and location IDs", Store],
+    ["Inventory", "Availability and visibility", Boxes],
+    ["Menu Data", "Category and display rules", MonitorUp]
+  ] as const;
+
+  return (
+    <div className="glass relative min-h-[520px] overflow-hidden rounded-[2rem] p-5 sm:p-6">
+      <div className="absolute inset-0 soft-grid opacity-28" />
+      <div className="absolute left-1/2 top-1/2 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-tlx/15 orbit" />
+      <div className="relative grid h-full gap-5 lg:grid-cols-[0.74fr_0.52fr_0.84fr]">
+        <div className="space-y-3">
+          <p className="px-1 text-xs font-semibold uppercase tracking-[0.22em] text-cyan-tlx">Incoming retail data</p>
+          {packets.map(([title, text, Icon]) => (
+            <RosettaDataPacket key={title} title={title} text={text} icon={Icon} />
+          ))}
+        </div>
+
+        <div className="flex items-center justify-center">
+          <div className="scanline relative flex h-52 w-52 items-center justify-center rounded-full border border-cyan-tlx/30 bg-[radial-gradient(circle,rgba(0,215,232,0.16),rgba(0,215,232,0.04)_58%,transparent)] text-center shadow-glow">
+            <div className="absolute inset-8 rounded-full border border-violet-tlx/20 orbit-reverse" />
+            <div className="relative">
+              <DatabaseZap className="mx-auto h-10 w-10 text-cyan-tlx" />
+              <p className="mt-3 text-xl font-semibold text-white">Rosetta</p>
+              <p className="mt-1 text-xs uppercase tracking-[0.18em] text-muted">Normalize</p>
             </div>
-            {["POS", "Lab", "Inventory", "COA", "Menu Data", "Provider"].map((item, index) => {
-              const angle = (index / 6) * Math.PI * 2;
-              const x = round(Math.cos(angle) * 175);
-              const y = round(Math.sin(angle) * 145);
-              return (
-                <div
-                  key={item}
-                  className="absolute rounded-2xl border border-white/10 bg-white/[0.06] px-4 py-3 text-sm font-semibold text-slate-200"
-                  style={{ transform: `translate(${x}px, ${y}px)` }}
-                >
-                  {item}
-                </div>
-              );
-            })}
+          </div>
+        </div>
+
+        <div className="rounded-[1.6rem] border border-cyan-tlx/20 bg-cyan-tlx/[0.055] p-4">
+          <div className="mb-4 flex items-center justify-between gap-3">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-cyan-tlx">Normalized TLX record</p>
+              <p className="mt-1 text-lg font-semibold text-white">Retail-ready product truth</p>
+            </div>
+            <BadgeCheck className="h-6 w-6 text-cyan-tlx" />
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+            {[
+              ["Product fit", "Relaxation"],
+              ["Visibility", "Live surfaces"],
+              ["Chemistry", "Parsed"],
+              ["Retail context", "Synced"]
+            ].map(([label, value]) => (
+              <div key={label} className="rounded-2xl border border-white/10 bg-obsidian/55 p-3">
+                <p className="text-xs uppercase tracking-[0.16em] text-muted">{label}</p>
+                <p className="mt-1 text-sm font-semibold text-white">{value}</p>
+              </div>
+            ))}
+          </div>
+          <div className="mt-4 h-44 overflow-hidden rounded-2xl border border-white/10 bg-[#050914]">
+            <Image
+              src="/proof/sample-library-sanitized.png"
+              alt="Normalized product records displayed in TLX Sample Library"
+              width={2250}
+              height={1117}
+              unoptimized
+              className="h-full w-full object-cover object-top"
+            />
           </div>
         </div>
       </div>
-    </Section>
+    </div>
+  );
+}
+
+function RosettaDataPacket({ title, text, icon: Icon }: { title: string; text: string; icon: IconComponent }) {
+  return (
+    <div className="rounded-2xl border border-white/10 bg-white/[0.045] p-4">
+      <div className="flex items-start gap-3">
+        <span className="flex h-10 w-10 flex-none items-center justify-center rounded-xl border border-white/10 bg-obsidian/60 text-cyan-tlx">
+          <Icon className="h-5 w-5" />
+        </span>
+        <div>
+          <p className="font-semibold text-white">{title}</p>
+          <p className="mt-1 text-sm leading-6 text-muted">{text}</p>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -2985,7 +3103,7 @@ function Footer() {
 
 function Section({ id, eyebrow, title, intro, children }: { id: string; eyebrow: string; title: string; intro: string; children: React.ReactNode }) {
   return (
-    <section id={id} className="relative scroll-mt-8 py-16 sm:scroll-mt-10 sm:py-24 lg:scroll-mt-12 lg:py-28">
+    <section id={id} className="relative scroll-mt-28 py-16 sm:scroll-mt-32 sm:py-24 lg:scroll-mt-36 lg:py-28">
       <div className="section-shell">
         <motion.div
           initial={{ opacity: 0, transform: "translateY(18px)" }}
