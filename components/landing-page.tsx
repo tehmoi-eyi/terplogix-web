@@ -269,6 +269,8 @@ export function LandingPage() {
       <OperatorROIBand />
       <PlatformOverview />
       <EarlyProductProofBand />
+      <HyperframesReelSection />
+      <ScienceToStoreSection />
       <RetailWorkflowProof />
       <ModularEcosystem />
       <OperatingLayerBreak />
@@ -419,7 +421,7 @@ function Hero() {
       <div className="absolute left-1/2 top-24 h-[620px] w-[620px] -translate-x-1/2 rounded-full bg-cyan-tlx/10 blur-3xl" />
       <div className="absolute right-0 top-1/3 h-[520px] w-[420px] rounded-full bg-violet-tlx/10 blur-3xl" />
 
-      <div className="section-shell relative grid min-h-[calc(100vh-5.5rem)] items-center gap-7 py-8 sm:gap-10 sm:py-12 lg:grid-cols-[1fr_1fr] xl:gap-12">
+      <div className="section-shell relative grid min-h-[calc(100vh-5.5rem)] items-center gap-8 py-8 sm:gap-10 sm:py-12 lg:grid-cols-[0.92fr_1.08fr] xl:gap-14">
         <motion.div
           variants={stagger}
           initial="hidden"
@@ -438,21 +440,21 @@ function Hero() {
             />
           </motion.div>
 
-          <motion.p variants={reveal} className="mb-4 inline-flex items-center gap-2 rounded-full border border-cyan-tlx/25 bg-cyan-tlx/8 px-4 py-2 text-xs font-semibold uppercase text-cyan-tlx">
+          <motion.p variants={reveal} className="mb-4 inline-flex items-center gap-2 rounded-full border border-cyan-tlx/25 bg-cyan-tlx/8 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-cyan-tlx">
             <ScanLine className="h-4 w-4" />
-            Modular cannabis retail intelligence platform
+            Premium cannabis retail intelligence
           </motion.p>
 
-          <motion.h1 variants={reveal} className="max-w-5xl font-display text-[3.05rem] font-semibold leading-[1.01] text-white sm:text-6xl lg:text-7xl 2xl:text-8xl">
-            Cannabis product intelligence, built for the sales floor.
+          <motion.h1 variants={reveal} className="max-w-5xl font-display text-[3.35rem] font-semibold leading-[0.98] text-white sm:text-7xl lg:text-8xl 2xl:text-[6.8rem]">
+            Product truth, activated across the store.
           </motion.h1>
 
-          <motion.p variants={reveal} className="mt-5 max-w-3xl text-lg leading-8 text-slate-300 sm:text-xl sm:leading-9">
-            TerpLogix is the intelligence layer between cannabis lab data, retail inventory, customer intent, and budtender service.
+          <motion.p variants={reveal} className="mt-6 max-w-3xl text-xl leading-9 text-slate-200 sm:text-2xl sm:leading-10">
+            TerpLogix turns COAs, inventory, customer intent, and staff handoff into one premium operating layer for dispensaries.
           </motion.p>
 
           <motion.p variants={reveal} className="mt-4 hidden max-w-3xl text-lg leading-8 text-muted sm:block">
-            Turn COAs and product data into usable retail intelligence, guide customers with better recommendations, support budtenders, generate signs and menus, and reveal what shoppers wanted before purchase.
+            Lab reports become explainable recommendations. Recommendations become print cards, menus, kiosks, queue tickets, and intent analytics without rewriting product truth.
           </motion.p>
 
           <motion.div variants={reveal} className="mt-5 flex flex-col gap-3 sm:flex-row">
@@ -475,12 +477,12 @@ function Hero() {
             </div>
           </motion.div>
 
-          <motion.div variants={reveal} className="mt-6 hidden max-w-4xl gap-3 sm:grid sm:grid-cols-2 xl:grid-cols-4">
+          <motion.div variants={reveal} className="mt-8 hidden max-w-4xl gap-3 sm:grid sm:grid-cols-2 xl:grid-cols-4">
             {[
-              ["COA to context", "Lab truth becomes retail guidance"],
+              ["COA to context", "Lab truth becomes guidance"],
               ["Guided sales", "Effect-led recommendations"],
-              ["Display sync", "Menus, signs, kiosks, Discover"],
-              ["Intent analytics", "See demand before purchase"]
+              ["Surface sync", "Cards, menus, kiosks"],
+              ["Intent signal", "Demand before purchase"]
             ].map(([label, value]) => (
               <div key={label} className="rounded-2xl border border-white/10 bg-white/[0.045] p-4">
                 <p className="text-sm font-semibold text-cyan-tlx">{label}</p>
@@ -752,6 +754,68 @@ function EarlyProductProofBand() {
   );
 }
 
+function HyperframesReelSection() {
+  const shouldReduceMotion = useReducedMotion();
+
+  return (
+    <section className="relative overflow-hidden py-14 sm:py-20">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_18%,rgba(0,215,232,0.12),transparent_32%),radial-gradient(circle_at_82%_12%,rgba(127,60,255,0.12),transparent_34%)]" />
+      <div className="section-shell">
+        <div className="relative grid items-center gap-8 xl:grid-cols-[0.34fr_0.66fr]">
+          <motion.div
+            initial={{ opacity: 0, transform: "translateY(24px)" }}
+            whileInView={{ opacity: 1, transform: "translateY(0px)" }}
+            viewport={{ once: true, margin: "-90px" }}
+            transition={{ duration: 0.62, ease: [0.23, 1, 0.32, 1] }}
+          >
+            <p className="inline-flex items-center gap-2 rounded-full border border-cyan-tlx/25 bg-cyan-tlx/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-cyan-tlx">
+              <Sparkles className="h-4 w-4" />
+              Motion system
+            </p>
+            <h2 className="mt-5 max-w-3xl text-4xl font-semibold leading-tight text-white sm:text-5xl lg:text-6xl">
+              See the platform as one connected retail layer.
+            </h2>
+            <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-300">
+              This reel compresses the TLX story into a cinematic pass: product truth, synchronized retail surfaces, guided customer discovery, and budtender-ready handoff.
+            </p>
+            <div className="mt-8 grid gap-3 sm:grid-cols-3 xl:grid-cols-1">
+              {["COA to product truth", "Explore to staff handoff", "Print, menus, displays synced"].map((item) => (
+                <div key={item} className="rounded-2xl border border-white/10 bg-white/[0.045] px-4 py-3 text-sm font-semibold text-slate-200">
+                  {item}
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, transform: "translateY(28px) scale(0.98)" }}
+            whileInView={{ opacity: 1, transform: "translateY(0px) scale(1)" }}
+            viewport={{ once: true, margin: "-90px" }}
+            transition={{ duration: 0.72, ease: [0.23, 1, 0.32, 1] }}
+            className="relative overflow-hidden rounded-[2.4rem] border border-cyan-tlx/20 bg-obsidian shadow-[0_48px_150px_rgba(0,0,0,0.45)]"
+          >
+            <div className="absolute inset-0 z-10 pointer-events-none bg-[linear-gradient(145deg,rgba(255,255,255,0.08),transparent_22%,rgba(0,0,0,0.18)_80%)]" />
+            <video
+              className="block aspect-video w-full bg-transparent object-cover"
+              src="/hyperframes/terplogix-section-reel.mp4"
+              poster="/hyperframes/terplogix-section-reel-poster.jpg"
+              autoPlay={!shouldReduceMotion}
+              muted
+              loop
+              playsInline
+              preload="metadata"
+            />
+            <div className="absolute bottom-4 left-4 right-4 z-20 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-white/10 bg-black/42 px-4 py-3 backdrop-blur-xl">
+              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-tlx">HyperFrames section reel</span>
+              <span className="text-sm font-semibold text-white">21 seconds · platform narrative</span>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function ProductProofStage() {
   return (
     <div className="relative min-h-[720px] overflow-hidden rounded-[2rem] border border-white/10 bg-[radial-gradient(circle_at_54%_42%,rgba(0,215,232,0.16),transparent_34%),linear-gradient(145deg,rgba(3,8,17,0.86),rgba(8,16,30,0.62))] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_34px_110px_rgba(0,0,0,0.36)] sm:p-6 lg:min-h-[760px]">
@@ -832,6 +896,106 @@ function LabInputCard() {
         <p className="text-sm leading-6 text-cyan-50">Indica-dominant hybrid that leans relaxation, led by Myrcene and Nerolidol.</p>
       </div>
     </div>
+  );
+}
+
+function ScienceToStoreSection() {
+  const stages = [
+    ["COA", "Chemistry enters", FileText],
+    ["Cortex", "Product truth", BrainCircuit],
+    ["Explore", "Guided match", TabletSmartphone],
+    ["Print", "Retail card", Printer],
+    ["Queue", "Staff handoff", ClipboardCheck],
+    ["Analytics", "Intent loop", BarChart3]
+  ] as const;
+
+  return (
+    <section id="science-to-store" className="relative scroll-mt-28 overflow-hidden py-12 sm:scroll-mt-32 sm:py-20 lg:scroll-mt-36 lg:py-20">
+      <div className="absolute inset-x-0 top-1/2 h-px bg-gradient-to-r from-transparent via-cyan-tlx/30 to-transparent" />
+      <div className="absolute left-1/2 top-1/2 h-[900px] w-[900px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-tlx/[0.08] blur-3xl" />
+      <div className="section-shell">
+        <motion.div
+          initial={{ opacity: 0, transform: "translateY(24px)" }}
+          whileInView={{ opacity: 1, transform: "translateY(0px)" }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.72, ease: [0.23, 1, 0.32, 1] }}
+          className="science-store-stage relative overflow-hidden rounded-[2.2rem] border border-cyan-tlx/20 bg-[radial-gradient(circle_at_24%_18%,rgba(0,215,232,0.18),transparent_30%),radial-gradient(circle_at_78%_24%,rgba(127,60,255,0.18),transparent_32%),linear-gradient(145deg,rgba(255,255,255,0.075),rgba(255,255,255,0.018))] p-5 shadow-[0_52px_170px_rgba(0,0,0,0.48)] sm:rounded-[2.8rem] sm:p-8 lg:p-10"
+        >
+          <div className="absolute inset-0 soft-grid opacity-20" />
+          <div className="absolute left-1/2 top-1/2 h-[760px] w-[760px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-tlx/12 science-store-ring" />
+          <div className="absolute left-1/2 top-1/2 h-[520px] w-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-violet-tlx/14 science-store-ring-reverse" />
+
+          <div className="relative z-10 grid gap-9 xl:grid-cols-[0.4fr_0.6fr]">
+            <div className="flex flex-col justify-between gap-10">
+              <div>
+                <p className="inline-flex items-center gap-2 rounded-full border border-cyan-tlx/25 bg-cyan-tlx/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-cyan-tlx">
+                  <Network className="h-4 w-4" />
+                  Science to store
+                </p>
+                <h2 className="mt-5 max-w-4xl font-display text-[2.6rem] font-semibold leading-[1.02] text-white sm:text-6xl lg:text-7xl">
+                  One record. Every retail surface.
+                </h2>
+                <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300 sm:text-xl sm:leading-9">
+                  A premium dispensary system should feel continuous: scan the product truth once, then let it power recommendations, queue handoffs, print cards, menus, and analytics.
+                </p>
+              </div>
+
+              <div className="grid gap-3 sm:grid-cols-2">
+                {[
+                  ["No duplicate writing", "Product language stays aligned from lab review to customer-facing surfaces."],
+                  ["No cold starts", "Staff receive the shopper goal, shortlist, and fit context before service begins."]
+                ].map(([title, text]) => (
+                  <div key={title} className="rounded-[1.35rem] border border-white/10 bg-white/[0.045] p-5">
+                    <p className="text-lg font-semibold text-white">{title}</p>
+                    <p className="mt-2 text-sm leading-6 text-muted">{text}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="relative min-h-[620px] overflow-hidden rounded-[1.8rem] border border-white/10 bg-[linear-gradient(145deg,rgba(3,7,14,0.82),rgba(7,16,28,0.58))] p-4 sm:min-h-[720px] sm:rounded-[2.2rem] sm:p-6 lg:min-h-[820px]">
+              <div className="absolute inset-0 soft-grid opacity-18" />
+              <div className="absolute left-1/2 top-[44%] h-[520px] w-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-tlx/[0.08] blur-3xl" />
+              <div className="absolute left-[7%] top-[7%] z-20 w-[54%] min-w-[230px] max-w-[520px] rotate-[-4deg] overflow-hidden rounded-[1.45rem] border border-cyan-tlx/22 bg-obsidian shadow-[0_36px_110px_rgba(0,0,0,0.52)] sm:w-[48%]">
+                <Image src="/proof/explore-product-detail-cutout.png" alt="Explore product detail from TLX product intelligence" width={502} height={1240} loading="eager" unoptimized className="h-[420px] w-full object-cover object-top sm:h-[620px]" />
+              </div>
+              <div className="absolute right-[4%] top-[10%] z-30 w-[68%] max-w-[640px] rotate-[3deg] overflow-hidden rounded-[1.45rem] bg-white shadow-[0_34px_100px_rgba(0,0,0,0.48)] sm:w-[54%]">
+                <Image src="/proof/printable-straincard-card.png" alt="Printable strain card generated from TLX product intelligence" width={659} height={469} loading="eager" unoptimized className="h-auto w-full" />
+              </div>
+              <div className="absolute bottom-[7%] right-[5%] z-10 w-[72%] max-w-[780px] rotate-[-2deg] overflow-hidden rounded-[1.55rem] border border-cyan-tlx/18 bg-obsidian shadow-[0_40px_120px_rgba(0,0,0,0.5)]">
+                <Image src="/proof/sample-library-select-sanitized.png" alt="Sample Library print workflow powered by TLX" width={2250} height={1117} loading="eager" unoptimized className="h-auto w-full" />
+              </div>
+              <div className="absolute bottom-[28%] left-[10%] z-40 hidden w-[330px] rounded-[1.45rem] border border-cyan-tlx/30 bg-cyan-tlx/[0.12] p-5 shadow-glow backdrop-blur-xl md:block">
+                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-tlx">Live handoff</p>
+                <p className="mt-3 text-2xl font-semibold leading-tight text-white">Customer goal, picks, and context arrive ready for staff.</p>
+                <div className="mt-5 space-y-2">
+                  {["Goal: relaxation", "Shortlist: 3 products", "Status: ready for service"].map((item) => (
+                    <p key={item} className="rounded-xl border border-white/10 bg-obsidian/55 px-3 py-2 text-sm text-slate-200">{item}</p>
+                  ))}
+                </div>
+              </div>
+
+              <div className="absolute bottom-4 left-4 z-50 grid max-w-[210px] gap-2 rounded-[1.4rem] border border-white/10 bg-obsidian/82 p-3 backdrop-blur-xl sm:left-4 sm:right-4 sm:max-w-none sm:grid-cols-6">
+                {stages.map(([label, text, Icon], index) => (
+                  <div key={label} className={`${index > 2 ? "hidden sm:block" : "block"} relative rounded-2xl border border-white/10 bg-white/[0.045] px-3 py-3`}>
+                    <div className="flex items-center gap-2">
+                      <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-cyan-tlx/[0.1] text-cyan-tlx">
+                        <Icon className="h-4 w-4" />
+                      </span>
+                      <span>
+                        <span className="block text-sm font-semibold text-white">{label}</span>
+                        <span className="block text-[11px] text-muted">{text}</span>
+                      </span>
+                    </div>
+                    {index < stages.length - 1 ? <ArrowRight className="absolute -right-3 top-1/2 hidden h-4 w-4 -translate-y-1/2 text-cyan-tlx/55 sm:block" /> : null}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </section>
   );
 }
 

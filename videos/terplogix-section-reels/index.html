@@ -1,0 +1,639 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Manrope";
+        src: url("assets/fonts/manrope-400.ttf") format("truetype");
+        font-weight: 400;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: "Manrope";
+        src: url("assets/fonts/manrope-500.ttf") format("truetype");
+        font-weight: 500;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: "Manrope";
+        src: url("assets/fonts/manrope-700.ttf") format("truetype");
+        font-weight: 700;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: "Manrope";
+        src: url("assets/fonts/manrope-800.ttf") format("truetype");
+        font-weight: 800;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: "Space Grotesk";
+        src: url("assets/fonts/space-grotesk-700.ttf") format("truetype");
+        font-weight: 700;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: "IBM Plex Mono";
+        src: url("assets/fonts/ibm-plex-mono-600.ttf") format("truetype");
+        font-weight: 600;
+        font-style: normal;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        width: 1920px;
+        height: 1080px;
+        margin: 0;
+        overflow: hidden;
+        background: #030407;
+        color: #f4fbff;
+      }
+
+      body {
+        font-family: "Manrope", Arial, sans-serif;
+        text-rendering: geometricPrecision;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      #root {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background:
+          radial-gradient(circle at 18% 22%, rgba(0, 215, 232, 0.22), rgba(0, 215, 232, 0) 34%),
+          radial-gradient(circle at 76% 12%, rgba(127, 60, 255, 0.2), rgba(127, 60, 255, 0) 36%),
+          linear-gradient(180deg, #030407 0%, #07101f 48%, #030407 100%);
+      }
+
+      .clip {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        background-color: #030407;
+      }
+
+      .scene-content {
+        position: relative;
+        z-index: 5;
+        display: flex;
+        width: 100%;
+        height: 100%;
+        padding: 76px 88px;
+        box-sizing: border-box;
+      }
+
+      .scene-copy {
+        position: relative;
+        z-index: 14;
+        display: flex;
+        flex-direction: column;
+        gap: 34px;
+        justify-content: center;
+        height: 100%;
+      }
+
+      .scene-bg {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        background:
+          linear-gradient(rgba(255, 255, 255, 0.045) 2px, rgba(255, 255, 255, 0) 2px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.045) 2px, rgba(255, 255, 255, 0) 2px);
+        background-size: 96px 96px;
+        opacity: 0.45;
+      }
+
+      .aura {
+        position: absolute;
+        border-radius: 999px;
+        filter: blur(48px);
+        opacity: 0.72;
+      }
+
+      .aura-cyan {
+        background: rgba(0, 215, 232, 0.22);
+      }
+
+      .aura-violet {
+        background: rgba(127, 60, 255, 0.2);
+      }
+
+      .brand-bar {
+        position: absolute;
+        top: 52px;
+        left: 88px;
+        right: 88px;
+        z-index: 20;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .brand-bar img {
+        width: 500px;
+        height: auto;
+      }
+
+      .timecode {
+        font-family: "IBM Plex Mono", Consolas, monospace;
+        font-size: 22px;
+        letter-spacing: 0.18em;
+        color: #00d7e8;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        width: fit-content;
+        border: 2px solid rgba(0, 215, 232, 0.35);
+        border-radius: 999px;
+        padding: 16px 24px;
+        background: rgba(0, 215, 232, 0.12);
+        color: #00d7e8;
+        font-family: "IBM Plex Mono", Consolas, monospace;
+        font-size: 22px;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2 {
+        margin: 0;
+        font-family: "Space Grotesk", "Manrope", Arial, sans-serif;
+        font-weight: 800;
+        letter-spacing: -0.035em;
+        color: #ffffff;
+      }
+
+      h1 {
+        max-width: 1000px;
+        font-size: 122px;
+        line-height: 0.96;
+      }
+
+      h2 {
+        max-width: 860px;
+        font-size: 102px;
+        line-height: 0.98;
+      }
+
+      .body-copy {
+        max-width: 760px;
+        margin: 0;
+        color: #c8d8e7;
+        font-size: 36px;
+        line-height: 1.32;
+      }
+
+      .panel {
+        border: 2px solid rgba(255, 255, 255, 0.14);
+        border-radius: 36px;
+        background:
+          linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.035)),
+          rgba(8, 11, 18, 0.76);
+        box-shadow: 0 44px 120px rgba(0, 0, 0, 0.42);
+        backdrop-filter: blur(18px);
+      }
+
+      .metric-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 22px;
+        width: 690px;
+      }
+
+      .metric-card {
+        min-height: 170px;
+        padding: 30px;
+      }
+
+      .metric-label {
+        margin: 0;
+        color: #8ea3b8;
+        font-family: "IBM Plex Mono", Consolas, monospace;
+        font-size: 20px;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+
+      .metric-value {
+        margin: 18px 0 0;
+        color: #ffffff;
+        font-size: 44px;
+        font-weight: 800;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .orbit-stage {
+        position: absolute;
+        right: 72px;
+        top: 150px;
+        z-index: 2;
+        width: 850px;
+        height: 760px;
+      }
+
+      .orbit-img {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        object-fit: contain;
+        transform: translate(-50%, -50%);
+      }
+
+      .halo {
+        width: 880px;
+        height: 880px;
+        opacity: 0.62;
+      }
+
+      .network {
+        width: 760px;
+        height: 760px;
+        opacity: 0.88;
+      }
+
+      .lens {
+        width: 370px;
+        height: 370px;
+      }
+
+      .hero-stack {
+        position: absolute;
+        right: 86px;
+        top: 170px;
+        z-index: 4;
+        width: 890px;
+        height: 760px;
+      }
+
+      .surface {
+        position: absolute;
+        overflow: hidden;
+        border: 2px solid rgba(255, 255, 255, 0.16);
+        border-radius: 34px;
+        background: #080b12;
+        box-shadow: 0 46px 130px rgba(0, 0, 0, 0.5);
+      }
+
+      .surface img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top;
+        display: block;
+      }
+
+      .surface-card img {
+        object-fit: contain;
+        background: #ffffff;
+      }
+
+      .surface-explore {
+        left: 0;
+        top: 80px;
+        width: 440px;
+        height: 650px;
+        transform: rotate(-4deg);
+      }
+
+      .surface-card {
+        right: 0;
+        top: 120px;
+        width: 620px;
+        height: 440px;
+        transform: rotate(3deg);
+      }
+
+      .surface-library {
+        right: 30px;
+        bottom: 10px;
+        width: 660px;
+        height: 330px;
+        transform: rotate(-2deg);
+      }
+
+      .handoff {
+        position: absolute;
+        left: 54px;
+        top: 182px;
+        z-index: 18;
+        width: 430px;
+        padding: 30px;
+        border-color: rgba(0, 215, 232, 0.34);
+        background:
+          radial-gradient(circle at 76% 0%, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0) 36%),
+          linear-gradient(145deg, rgba(0, 215, 232, 0.2), rgba(8, 11, 18, 0.78));
+      }
+
+      .handoff h3 {
+        margin: 16px 0 18px;
+        color: #ffffff;
+        font-size: 32px;
+        line-height: 1.08;
+      }
+
+      .handoff-row {
+        margin-top: 10px;
+        border-radius: 18px;
+        padding: 14px 18px;
+        background: rgba(3, 4, 7, 0.58);
+        color: #dbefff;
+        font-size: 19px;
+        font-weight: 700;
+      }
+
+      .flow-strip {
+        position: absolute;
+        left: 1360px;
+        right: 88px;
+        bottom: 54px;
+        z-index: 8;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        align-items: start;
+        gap: 14px;
+        height: 372px;
+        padding: 22px 20px;
+      }
+
+      .flow-step {
+        border-radius: 24px;
+        padding: 22px 20px;
+        background: rgba(255, 255, 255, 0.055);
+        border: 2px solid rgba(255, 255, 255, 0.12);
+      }
+
+      .flow-step strong {
+        display: block;
+        color: #ffffff;
+        font-size: 23px;
+      }
+
+      .flow-step span {
+        display: block;
+        margin-top: 7px;
+        color: #a8bed3;
+        font-size: 16px;
+      }
+
+      .kiosk-stack {
+        position: absolute;
+        right: 90px;
+        top: 142px;
+        width: 900px;
+        height: 780px;
+      }
+
+      .kiosk-screen {
+        position: absolute;
+        width: 390px;
+        height: 520px;
+        border-radius: 32px;
+        border: 2px solid rgba(255, 255, 255, 0.14);
+        background: #080b12;
+        box-shadow: 0 42px 120px rgba(0, 0, 0, 0.48);
+        overflow: hidden;
+      }
+
+      .kiosk-screen img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top;
+      }
+
+      .kiosk-a {
+        left: 10px;
+        top: 64px;
+        transform: rotate(-5deg);
+      }
+
+      .kiosk-b {
+        left: 260px;
+        top: 20px;
+        transform: rotate(3deg);
+      }
+
+      .kiosk-c {
+        right: 0;
+        top: 112px;
+        transform: rotate(-2deg);
+      }
+
+      .cta-panel {
+        position: absolute;
+        left: 92px;
+        right: 92px;
+        bottom: 82px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 34px 42px;
+      }
+
+      .cta-panel p {
+        margin: 0;
+        max-width: 830px;
+        color: #c8d8e7;
+        font-size: 32px;
+        line-height: 1.25;
+      }
+
+      .cta-button {
+        border-radius: 999px;
+        padding: 26px 38px;
+        color: #030407;
+        background: #a9fbff;
+        box-shadow: 0 0 42px rgba(0, 215, 232, 0.3);
+        font-size: 24px;
+        font-weight: 900;
+      }
+
+      .scanline {
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, rgba(0, 215, 232, 0), rgba(0, 215, 232, 0.9), rgba(127, 60, 255, 0));
+        box-shadow: 0 0 30px rgba(0, 215, 232, 0.7);
+      }
+
+      .fade-to-black {
+        position: absolute;
+        inset: 0;
+        z-index: 100;
+        background: #030407;
+        opacity: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="21" data-width="1920" data-height="1080">
+      <section id="scene-1" class="clip" data-start="0" data-duration="7" data-track-index="1">
+        <div class="scene-bg"></div>
+        <span class="aura aura-cyan" style="left: 170px; top: 120px; width: 520px; height: 520px"></span>
+        <span class="aura aura-violet" style="right: 170px; top: 160px; width: 620px; height: 620px"></span>
+        <div class="brand-bar">
+          <img class="brand" src="assets/brand/wordmark-header.png" alt="TerpLogix" data-layout-allow-occlusion />
+          <span class="timecode">SECTION REEL 01</span>
+        </div>
+        <div class="scene-content" style="align-items: center">
+          <div class="scene-copy" style="width: 980px; padding-top: 36px">
+            <div class="eyebrow" data-layout-allow-occlusion>Premium cannabis retail intelligence</div>
+            <h1>Product truth, activated across the store.</h1>
+            <p class="body-copy">COAs, retail context, customer intent, and staff handoff become one operating layer.</p>
+            <div class="metric-grid">
+              <div class="metric-card panel">
+                <p class="metric-label">Input</p>
+                <p class="metric-value">COA parsed</p>
+              </div>
+              <div class="metric-card panel">
+                <p class="metric-label">Output</p>
+                <p class="metric-value">Retail ready</p>
+              </div>
+              <div class="metric-card panel">
+                <p class="metric-label">Surface</p>
+                <p class="metric-value">Synced</p>
+              </div>
+              <div class="metric-card panel">
+                <p class="metric-label">Signal</p>
+                <p class="metric-value">Intent loop</p>
+              </div>
+            </div>
+          </div>
+          <div class="orbit-stage">
+            <img class="orbit-img halo" src="assets/generated/hero-signal-halo.png" alt="" />
+            <img class="orbit-img network" src="assets/generated/hero-network-shell.png" alt="" />
+            <img class="orbit-img lens" src="assets/generated/hero-lens-core.png" alt="TerpLogix lens" />
+          </div>
+        </div>
+        <span class="scanline" data-layout-allow-overflow></span>
+      </section>
+
+      <section id="scene-2" class="clip" data-start="6.4" data-duration="7.4" data-track-index="2">
+        <div class="scene-bg"></div>
+        <span class="aura aura-cyan" style="left: 70px; top: 260px; width: 680px; height: 680px"></span>
+        <span class="aura aura-violet" style="right: 150px; top: 90px; width: 620px; height: 620px"></span>
+        <div class="brand-bar">
+          <img class="brand" src="assets/brand/wordmark-header-science.png" alt="TerpLogix" data-layout-allow-occlusion />
+          <span class="timecode">SCIENCE TO STORE</span>
+        </div>
+        <div class="scene-content" style="align-items: center">
+          <div class="scene-copy" style="width: 650px; padding-top: 70px">
+            <div class="eyebrow">One record</div>
+            <h2>Every retail surface stays aligned.</h2>
+            <p class="body-copy">Scan product truth once. Let TLX power recommendations, print cards, queue tickets, menus, and analytics.</p>
+          </div>
+          <div class="hero-stack">
+            <div class="surface surface-explore"><img src="assets/proof/explore-product-detail-cutout.png" alt="Explore product detail" /></div>
+            <div class="surface surface-card"><img src="assets/proof/printable-straincard-card.png" alt="Printable strain card" data-layout-allow-overflow /></div>
+            <div class="surface surface-library"><img src="assets/proof/sample-library-select-sanitized.png" alt="Sample Library queue" /></div>
+            <div class="handoff panel">
+              <div class="eyebrow" style="font-size: 18px; padding: 12px 18px">Live handoff</div>
+              <h3>Customer goal, picks, and context arrive ready for staff.</h3>
+              <div class="handoff-row">Goal: relaxation</div>
+              <div class="handoff-row">Shortlist: 3 products</div>
+              <div class="handoff-row">Status: ready for service</div>
+            </div>
+          </div>
+          <div class="flow-strip panel">
+            <div class="flow-step"><strong>COA</strong><span>Chemistry enters</span></div>
+            <div class="flow-step"><strong>Cortex</strong><span>Product truth</span></div>
+            <div class="flow-step"><strong>Explore</strong><span>Guided match</span></div>
+            <div class="flow-step"><strong>Print</strong><span>Retail card</span></div>
+            <div class="flow-step"><strong>Queue</strong><span>Staff handoff</span></div>
+            <div class="flow-step"><strong>Analytics</strong><span>Intent loop</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="scene-3" class="clip" data-start="13.2" data-duration="7.8" data-track-index="3">
+        <div class="scene-bg"></div>
+        <span class="aura aura-cyan" style="right: 120px; top: 190px; width: 720px; height: 720px"></span>
+        <span class="aura aura-violet" style="left: 80px; bottom: 70px; width: 640px; height: 640px"></span>
+        <div class="brand-bar">
+          <img class="brand" src="assets/brand/wordmark-header-journey.png" alt="TerpLogix" data-layout-allow-occlusion />
+          <span class="timecode">GUIDED EXPERIENCE</span>
+        </div>
+        <div class="scene-content" style="align-items: center">
+          <div class="scene-copy" style="width: 770px; padding-top: 10px">
+            <div class="eyebrow">Customer journey</div>
+            <h2>From intent to confident recommendation.</h2>
+            <p class="body-copy">Customers choose how they want to feel. Budtenders receive better context. Operators see what demand looked like before purchase.</p>
+          </div>
+          <div class="kiosk-stack">
+            <div class="kiosk-screen kiosk-a"><img src="assets/proof/kiosk-refiners-selected.png" alt="Kiosk refiners selected" /></div>
+            <div class="kiosk-screen kiosk-b"><img src="assets/proof/kiosk-results.png" alt="Kiosk results" /></div>
+            <div class="kiosk-screen kiosk-c"><img src="assets/generated/premium-operating-layer-panorama.png" alt="Operating layer panorama" /></div>
+          </div>
+          <div class="cta-panel panel">
+            <p>TerpLogix is not another menu. It is the intelligence layer that keeps product truth, service, and surfaces synchronized.</p>
+            <div class="cta-button">Request Demo</div>
+          </div>
+        </div>
+        <div class="fade-to-black"></div>
+      </section>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      tl.fromTo("#scene-1 .brand", { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.62, ease: "expo.out" }, 0.16);
+      tl.fromTo("#scene-1 .timecode", { opacity: 0, x: 36 }, { opacity: 1, x: 0, duration: 0.46, ease: "power3.out" }, 0.24);
+      tl.fromTo("#scene-1 .eyebrow", { opacity: 0, y: 32, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(1.4)" }, 0.34);
+      tl.fromTo("#scene-1 h1", { opacity: 0, x: -70, letterSpacing: "0.01em" }, { opacity: 1, x: 0, letterSpacing: "-0.035em", duration: 0.72, ease: "expo.out" }, 0.54);
+      tl.fromTo("#scene-1 .body-copy", { opacity: 0, y: 42 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.92);
+      tl.fromTo("#scene-1 .metric-card", { opacity: 0, y: 58, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.58, stagger: 0.08, ease: "power4.out" }, 1.14);
+      tl.fromTo("#scene-1 .orbit-stage", { opacity: 0, scale: 0.82, rotation: -8 }, { opacity: 1, scale: 1, rotation: 0, duration: 1.05, ease: "power3.out" }, 0.48);
+      tl.to("#scene-1 .network", { rotation: 34, duration: 6.4, ease: "none" }, 0.3);
+      tl.to("#scene-1 .halo", { scale: 1.08, opacity: 0.9, yoyo: true, repeat: 3, duration: 1.6, ease: "sine.inOut" }, 0.3);
+      tl.fromTo("#scene-1 .scanline", { opacity: 0, y: -120 }, { opacity: 1, y: 1100, duration: 5.6, ease: "power1.inOut" }, 0.8);
+
+      tl.fromTo("#scene-2", { opacity: 0, filter: "blur(22px)", scale: 1.04 }, { opacity: 1, filter: "blur(0px)", scale: 1, duration: 0.78, ease: "sine.inOut" }, 6.4);
+      tl.fromTo("#scene-2 .brand", { opacity: 0, y: -28 }, { opacity: 1, y: 0, duration: 0.48, ease: "power2.out" }, 6.75);
+      tl.fromTo("#scene-2 .timecode", { opacity: 0, x: 42 }, { opacity: 1, x: 0, duration: 0.46, ease: "expo.out" }, 6.84);
+      tl.fromTo("#scene-2 .eyebrow", { opacity: 0, x: -44 }, { opacity: 1, x: 0, duration: 0.48, ease: "power3.out" }, 6.95);
+      tl.fromTo("#scene-2 h2", { opacity: 0, y: 74, scale: 0.98 }, { opacity: 1, y: 0, scale: 1, duration: 0.76, ease: "expo.out" }, 7.12);
+      tl.fromTo("#scene-2 .body-copy", { opacity: 0, y: 42 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 7.48);
+      tl.fromTo("#scene-2 .surface-explore", { opacity: 0, x: -130, y: 60, scale: 0.9 }, { opacity: 1, x: 0, y: 0, scale: 1, duration: 0.72, ease: "power4.out" }, 7.04);
+      tl.fromTo("#scene-2 .surface-card", { opacity: 0, x: 170, y: -44, scale: 0.9 }, { opacity: 1, x: 0, y: 0, scale: 1, duration: 0.78, ease: "back.out(1.2)" }, 7.18);
+      tl.fromTo("#scene-2 .surface-library", { opacity: 0, y: 120, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.62, ease: "power3.out" }, 7.54);
+      tl.fromTo("#scene-2 .handoff", { opacity: 0, y: 82, scale: 0.92 }, { opacity: 1, y: 0, scale: 1, duration: 0.62, ease: "expo.out" }, 7.88);
+      tl.fromTo("#scene-2 .flow-step", { opacity: 0, y: 36 }, { opacity: 1, y: 0, duration: 0.42, stagger: 0.055, ease: "power2.out" }, 8.22);
+      tl.to("#scene-2 .hero-stack", { y: -20, duration: 5.4, ease: "sine.inOut" }, 7.2);
+      tl.to("#scene-2 .surface-card img", { scale: 1.025, duration: 5.2, ease: "sine.inOut" }, 7.2);
+
+      tl.fromTo("#scene-3", { opacity: 0, filter: "blur(18px)", y: 90 }, { opacity: 1, filter: "blur(0px)", y: 0, duration: 0.72, ease: "power2.inOut" }, 13.2);
+      tl.fromTo("#scene-3 .brand", { opacity: 0, x: -34 }, { opacity: 1, x: 0, duration: 0.44, ease: "power2.out" }, 13.56);
+      tl.fromTo("#scene-3 .timecode", { opacity: 0, x: 34 }, { opacity: 1, x: 0, duration: 0.44, ease: "power4.out" }, 13.66);
+      tl.fromTo("#scene-3 .eyebrow", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.5)" }, 13.84);
+      tl.fromTo("#scene-3 h2", { opacity: 0, x: -80 }, { opacity: 1, x: 0, duration: 0.68, ease: "expo.out" }, 14.0);
+      tl.fromTo("#scene-3 .body-copy", { opacity: 0, y: 42 }, { opacity: 1, y: 0, duration: 0.52, ease: "power2.out" }, 14.36);
+      tl.fromTo("#scene-3 .kiosk-a", { opacity: 0, x: -120, rotation: -10, scale: 0.9 }, { opacity: 1, x: 0, rotation: -5, scale: 1, duration: 0.72, ease: "power3.out" }, 13.88);
+      tl.fromTo("#scene-3 .kiosk-b", { opacity: 0, y: -90, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.78, ease: "back.out(1.1)" }, 14.14);
+      tl.fromTo("#scene-3 .kiosk-c", { opacity: 0, x: 130, rotation: 4, scale: 0.92 }, { opacity: 1, x: 0, rotation: -2, scale: 1, duration: 0.7, ease: "power4.out" }, 14.36);
+      tl.fromTo("#scene-3 .cta-panel", { opacity: 0, y: 86, scale: 0.97 }, { opacity: 1, y: 0, scale: 1, duration: 0.68, ease: "expo.out" }, 15.08);
+      tl.to("#scene-3 .kiosk-stack", { y: -18, duration: 5.2, ease: "sine.inOut" }, 14.2);
+      tl.to("#scene-3 .fade-to-black", { opacity: 1, duration: 0.82, ease: "power1.inOut" }, 20.18);
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

@@ -379,6 +379,33 @@ select {
   animation-delay: -2.4s;
 }
 
+.science-store-stage {
+  isolation: isolate;
+}
+
+.science-store-stage::before {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  content: "";
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, transparent, rgba(0, 215, 232, 0.12), transparent),
+    radial-gradient(circle at 50% 44%, rgba(255, 255, 255, 0.08), transparent 34%);
+  mix-blend-mode: screen;
+  opacity: 0.75;
+  transform: translateX(-34%) skewX(-12deg);
+  animation: scienceStoreSweep 8s var(--ease-in-out) infinite;
+}
+
+.science-store-ring {
+  animation: scienceStoreOrbit 34s linear infinite;
+}
+
+.science-store-ring-reverse {
+  animation: scienceStoreOrbit 42s linear infinite reverse;
+}
+
 @keyframes scan {
   0%,
   28% {
@@ -604,6 +631,31 @@ select {
   100% {
     opacity: 0;
     transform: translateY(95%);
+  }
+}
+
+@keyframes scienceStoreSweep {
+  0%,
+  28% {
+    opacity: 0;
+    transform: translateX(-46%) skewX(-12deg);
+  }
+  48% {
+    opacity: 0.72;
+  }
+  76%,
+  100% {
+    opacity: 0;
+    transform: translateX(46%) skewX(-12deg);
+  }
+}
+
+@keyframes scienceStoreOrbit {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
   }
 }
 
