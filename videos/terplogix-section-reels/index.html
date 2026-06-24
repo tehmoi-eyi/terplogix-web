@@ -398,6 +398,7 @@
         top: 142px;
         width: 900px;
         height: 780px;
+        perspective: 1400px;
       }
 
       .kiosk-screen {
@@ -418,23 +419,62 @@
         object-position: top;
       }
 
+      .kiosk-tablet-halo {
+        position: absolute;
+        left: 50%;
+        top: 48%;
+        width: 760px;
+        height: 760px;
+        transform: translate(-50%, -50%);
+        border-radius: 999px;
+        border: 2px solid rgba(0, 215, 232, 0.18);
+        background: radial-gradient(circle, rgba(0, 215, 232, 0.22), rgba(25, 119, 255, 0.12) 40%, rgba(127, 60, 255, 0.1) 62%, transparent 74%);
+        filter: blur(4px);
+      }
+
+      .kiosk-tablet {
+        position: absolute;
+        left: 270px;
+        top: -20px;
+        z-index: 4;
+        width: 540px;
+        height: auto;
+        object-fit: contain;
+        filter:
+          drop-shadow(0 48px 110px rgba(0, 0, 0, 0.68))
+          drop-shadow(0 0 60px rgba(0, 215, 232, 0.22));
+      }
+
       .kiosk-a {
         left: 10px;
-        top: 64px;
+        top: 112px;
+        z-index: 2;
         transform: rotate(-5deg);
       }
 
       .kiosk-b {
-        left: 260px;
-        top: 20px;
+        right: 0;
+        bottom: 94px;
+        z-index: 5;
+        width: 420px;
+        height: 270px;
         transform: rotate(3deg);
       }
 
       .kiosk-c {
-        right: 0;
-        top: 112px;
+        left: 92px;
+        bottom: 18px;
+        z-index: 6;
+        width: 340px;
+        height: auto;
+        padding: 26px;
+        border-color: rgba(89, 255, 210, 0.24);
         transform: rotate(-2deg);
       }
+
+      .kiosk-c .mini-label { margin: 0 0 16px; }
+      .kiosk-c strong { display: block; color: #fff; font-size: 30px; line-height: 1.08; }
+      .kiosk-c > span:not(.mini-label) { display: block; margin-top: 12px; color: #a8bed3; font-size: 18px; line-height: 1.28; }
 
       .cta-panel {
         position: absolute;
@@ -457,10 +497,14 @@
 
       .cta-button {
         border-radius: 999px;
+        border: 2px solid rgba(169, 251, 255, 0.95);
         padding: 26px 38px;
-        color: #030407;
-        background: #a9fbff;
-        box-shadow: 0 0 42px rgba(0, 215, 232, 0.3);
+        color: #ffffff;
+        background:
+          linear-gradient(135deg, rgba(0, 215, 232, 0.95), rgba(127, 60, 255, 0.92)),
+          #00d7e8;
+        text-shadow: 0 1px 8px rgba(0, 0, 0, 0.32);
+        box-shadow: 0 0 42px rgba(0, 215, 232, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.24);
         font-size: 24px;
         font-weight: 900;
       }
@@ -498,7 +542,7 @@
             <div class="eyebrow" data-layout-allow-occlusion>Premium cannabis retail intelligence</div>
             <h1>Product truth, activated across the store.</h1>
             <p class="body-copy">COAs, retail context, customer intent, and staff handoff become one operating layer.</p>
-            <div class="metric-grid">
+            <div class="metric-grid" data-layout-allow-overflow>
               <div class="metric-card panel">
                 <p class="metric-label">Input</p>
                 <p class="metric-value">COA parsed</p>
@@ -526,7 +570,7 @@
         <span class="scanline" data-layout-allow-overflow></span>
       </section>
 
-      <section id="scene-2" class="clip" data-start="6.4" data-duration="7.4" data-track-index="2">
+      <section id="scene-2" class="clip" data-start="6.4" data-duration="7.4" data-track-index="2" data-layout-allow-overlap>
         <div class="scene-bg"></div>
         <span class="aura aura-cyan" style="left: 70px; top: 260px; width: 680px; height: 680px"></span>
         <span class="aura aura-violet" style="right: 150px; top: 90px; width: 620px; height: 620px"></span>
@@ -540,7 +584,7 @@
             <h2>Every retail surface stays aligned.</h2>
             <p class="body-copy">Scan product truth once. Let TLX power recommendations, print cards, queue tickets, menus, and analytics.</p>
           </div>
-          <div class="hero-stack">
+          <div class="hero-stack" data-layout-allow-occlusion>
             <div class="surface surface-explore"><img src="assets/proof/explore-product-detail-cutout.png" alt="Explore product detail" /></div>
             <div class="surface surface-card"><img src="assets/proof/printable-straincard-card.png" alt="Printable strain card" data-layout-allow-overflow /></div>
             <div class="surface surface-library"><img src="assets/proof/sample-library-select-sanitized.png" alt="Sample Library queue" /></div>
@@ -563,7 +607,7 @@
         </div>
       </section>
 
-      <section id="scene-3" class="clip" data-start="13.2" data-duration="7.8" data-track-index="3">
+      <section id="scene-3" class="clip" data-start="13.2" data-duration="7.8" data-track-index="3" data-layout-allow-overlap>
         <div class="scene-bg"></div>
         <span class="aura aura-cyan" style="right: 120px; top: 190px; width: 720px; height: 720px"></span>
         <span class="aura aura-violet" style="left: 80px; bottom: 70px; width: 640px; height: 640px"></span>
@@ -578,9 +622,11 @@
             <p class="body-copy">Customers choose how they want to feel. Budtenders receive better context. Operators see what demand looked like before purchase.</p>
           </div>
           <div class="kiosk-stack">
+            <span class="kiosk-tablet-halo"></span>
             <div class="kiosk-screen kiosk-a"><img src="assets/proof/kiosk-refiners-selected.png" alt="Kiosk refiners selected" /></div>
+            <img class="kiosk-tablet" src="assets/generated/tlx-small-kiosk-tablet.png" alt="TerpLogix tablet kiosk" />
             <div class="kiosk-screen kiosk-b"><img src="assets/proof/kiosk-results.png" alt="Kiosk results" /></div>
-            <div class="kiosk-screen kiosk-c"><img src="assets/generated/premium-operating-layer-panorama.png" alt="Operating layer panorama" /></div>
+            <div class="kiosk-c panel"><span class="mini-label">Retail handoff</span><strong>Explore becomes staff-ready context.</strong><span>Goals, picks, and confidence scores travel together.</span></div>
           </div>
           <div class="cta-panel panel">
             <p>TerpLogix is not another menu. It is the intelligence layer that keeps product truth, service, and surfaces synchronized.</p>
@@ -626,11 +672,14 @@
       tl.fromTo("#scene-3 .eyebrow", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.5)" }, 13.84);
       tl.fromTo("#scene-3 h2", { opacity: 0, x: -80 }, { opacity: 1, x: 0, duration: 0.68, ease: "expo.out" }, 14.0);
       tl.fromTo("#scene-3 .body-copy", { opacity: 0, y: 42 }, { opacity: 1, y: 0, duration: 0.52, ease: "power2.out" }, 14.36);
-      tl.fromTo("#scene-3 .kiosk-a", { opacity: 0, x: -120, rotation: -10, scale: 0.9 }, { opacity: 1, x: 0, rotation: -5, scale: 1, duration: 0.72, ease: "power3.out" }, 13.88);
-      tl.fromTo("#scene-3 .kiosk-b", { opacity: 0, y: -90, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.78, ease: "back.out(1.1)" }, 14.14);
-      tl.fromTo("#scene-3 .kiosk-c", { opacity: 0, x: 130, rotation: 4, scale: 0.92 }, { opacity: 1, x: 0, rotation: -2, scale: 1, duration: 0.7, ease: "power4.out" }, 14.36);
+      tl.fromTo("#scene-3 .kiosk-tablet-halo", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.78, ease: "sine.inOut" }, 13.72);
+      tl.fromTo("#scene-3 .kiosk-tablet", { opacity: 0, y: 110, rotationY: -16, scale: 0.84 }, { opacity: 1, y: 0, rotationY: -5, scale: 1, duration: 0.9, ease: "expo.out" }, 13.92);
+      tl.fromTo("#scene-3 .kiosk-a", { opacity: 0, x: -120, rotation: -10, scale: 0.9 }, { opacity: 1, x: 0, rotation: -5, scale: 1, duration: 0.72, ease: "power3.out" }, 14.06);
+      tl.fromTo("#scene-3 .kiosk-b", { opacity: 0, y: -90, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.78, ease: "back.out(1.1)" }, 14.28);
+      tl.fromTo("#scene-3 .kiosk-c", { opacity: 0, x: 130, rotation: 4, scale: 0.92 }, { opacity: 1, x: 0, rotation: -2, scale: 1, duration: 0.7, ease: "power4.out" }, 14.54);
       tl.fromTo("#scene-3 .cta-panel", { opacity: 0, y: 86, scale: 0.97 }, { opacity: 1, y: 0, scale: 1, duration: 0.68, ease: "expo.out" }, 15.08);
       tl.to("#scene-3 .kiosk-stack", { y: -18, duration: 5.2, ease: "sine.inOut" }, 14.2);
+      tl.to("#scene-3 .kiosk-tablet-halo", { scale: 1.08, opacity: 0.76, duration: 1.35, yoyo: true, repeat: 2, ease: "sine.inOut" }, 15.0);
       tl.to("#scene-3 .fade-to-black", { opacity: 1, duration: 0.82, ease: "power1.inOut" }, 20.18);
 
       window.__timelines["main"] = tl;

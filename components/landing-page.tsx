@@ -39,10 +39,10 @@ type IconComponent = typeof BrainCircuit;
 const navItems = [
   ["Product", "#product"],
   ["Modules", "#modules"],
-  ["Workflow", "#workflow"],
-  ["Customization", "#customization"],
+  ["Experience", "#experience"],
+  ["Retail Surfaces", "#customization"],
   ["Analytics", "#analytics"],
-  ["Integrations", "#integrations"]
+  ["Demo", "#demo"]
 ] as const;
 
 const modules = [
@@ -191,9 +191,11 @@ const operatorValues = [
   ["Scale across locations", "The architecture supports dispensary configuration, active store state, provider setup, and repeatable operating workflows.", Building2]
 ] as const;
 
+const smoothEase = [0.23, 1, 0.32, 1] as const;
+
 const reveal = {
   hidden: { opacity: 0, transform: "translateY(22px)" },
-  show: { opacity: 1, transform: "translateY(0px)" }
+  show: { opacity: 1, transform: "translateY(0px)", transition: { duration: 0.86, ease: smoothEase } }
 };
 
 const round = (value: number) => Math.round(value * 1000) / 1000;
@@ -202,7 +204,7 @@ const stagger = {
   hidden: {},
   show: {
     transition: {
-      staggerChildren: 0.06
+      staggerChildren: 0.14
     }
   }
 };
@@ -220,7 +222,7 @@ export function LandingPage() {
     import("lenis").then(({ default: Lenis }) => {
       if (!active) return;
       lenis = new Lenis({
-        duration: 1.08,
+        duration: 1.52,
         easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         smoothWheel: true
       });
@@ -268,21 +270,12 @@ export function LandingPage() {
       <Hero />
       <OperatorROIBand />
       <PlatformOverview />
-      <EarlyProductProofBand />
-      <HyperframesReelSection />
       <ScienceToStoreSection />
-      <RetailWorkflowProof />
       <ModularEcosystem />
-      <OperatingLayerBreak />
-      <HowItWorks />
-      <OperatorValue />
       <ExperienceBridge />
       <CustomizationSection />
-      <SignageSection />
-      <SyncedDisplaySection />
       <AnalyticsSection />
       <IntegrationSection />
-      <ScreenshotShowcase />
       <CTASection />
       <Footer />
     </main>
@@ -305,22 +298,22 @@ function OperatorROIBand() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: "-80px" }}
-          className="grid gap-3 md:grid-cols-2 xl:grid-cols-4"
+          className="grid gap-4 md:grid-cols-2 xl:grid-cols-4"
         >
           {roiItems.map(([title, text, Icon]) => (
             <motion.article
               key={title}
               variants={reveal}
-              className="group relative overflow-hidden rounded-2xl border border-white/10 bg-[linear-gradient(145deg,rgba(255,255,255,0.06),rgba(255,255,255,0.018))] p-5 shadow-[0_18px_58px_rgba(0,0,0,0.22)]"
+              className="group relative min-h-40 overflow-hidden rounded-[1.65rem] border border-white/10 bg-[linear-gradient(145deg,rgba(255,255,255,0.07),rgba(255,255,255,0.02))] p-6 shadow-[0_22px_70px_rgba(0,0,0,0.24)]"
             >
               <div className="absolute -right-16 -top-16 h-36 w-36 rounded-full bg-cyan-tlx/[0.12] blur-3xl opacity-70 transition-opacity duration-200 group-hover:opacity-100" />
               <div className="relative flex items-start gap-4">
-                <span className="flex h-12 w-12 flex-none items-center justify-center rounded-2xl border border-cyan-tlx/20 bg-cyan-tlx/[0.08] text-cyan-tlx">
-                  <Icon className="h-5 w-5" />
+                <span className="flex h-14 w-14 flex-none items-center justify-center rounded-2xl border border-cyan-tlx/20 bg-cyan-tlx/[0.09] text-cyan-tlx shadow-[0_0_26px_rgba(0,215,232,0.12)]">
+                  <Icon className="h-6 w-6" />
                 </span>
                 <div>
-                  <p className="text-lg font-semibold text-white">{title}</p>
-                  <p className="mt-2 text-sm leading-6 text-muted">{text}</p>
+                  <p className="text-xl font-semibold leading-tight text-white">{title}</p>
+                  <p className="mt-3 text-base leading-7 text-muted">{text}</p>
                 </div>
               </div>
             </motion.article>
@@ -446,22 +439,22 @@ function Hero() {
           </motion.p>
 
           <motion.h1 variants={reveal} className="max-w-5xl font-display text-[3.35rem] font-semibold leading-[0.98] text-white sm:text-7xl lg:text-8xl 2xl:text-[6.8rem]">
-            Product truth, activated across the store.
+            Smarter product guidance for modern dispensaries.
           </motion.h1>
 
           <motion.p variants={reveal} className="mt-6 max-w-3xl text-xl leading-9 text-slate-200 sm:text-2xl sm:leading-10">
-            TerpLogix turns COAs, inventory, customer intent, and staff handoff into one premium operating layer for dispensaries.
+            TerpLogix turns lab data, inventory, shopper goals, and staff handoffs into one premium retail system.
           </motion.p>
 
           <motion.p variants={reveal} className="mt-4 hidden max-w-3xl text-lg leading-8 text-muted sm:block">
-            Lab reports become explainable recommendations. Recommendations become print cards, menus, kiosks, queue tickets, and intent analytics without rewriting product truth.
+            Products become easier to explain. Customers get better recommendations. Staff start with context. Operators see what shoppers wanted before the sale.
           </motion.p>
 
           <motion.div variants={reveal} className="mt-5 flex flex-col gap-3 sm:flex-row">
             <a href="#demo" className="button-press inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-bold text-void shadow-glow">
               Request a Demo <ArrowRight className="h-4 w-4" />
             </a>
-            <a href="#workflow" className="button-press inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-white/5 px-6 py-3.5 text-sm font-semibold text-white">
+            <a href="#science-to-store" className="button-press inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-white/5 px-6 py-3.5 text-sm font-semibold text-white">
               See How It Works <Radar className="h-4 w-4" />
             </a>
           </motion.div>
@@ -477,16 +470,16 @@ function Hero() {
             </div>
           </motion.div>
 
-          <motion.div variants={reveal} className="mt-8 hidden max-w-4xl gap-3 sm:grid sm:grid-cols-2 xl:grid-cols-4">
+          <motion.div variants={reveal} className="mt-8 hidden max-w-6xl gap-4 sm:grid sm:grid-cols-2 xl:grid-cols-4">
             {[
               ["COA to context", "Lab truth becomes guidance"],
               ["Guided sales", "Effect-led recommendations"],
               ["Surface sync", "Cards, menus, kiosks"],
               ["Intent signal", "Demand before purchase"]
             ].map(([label, value]) => (
-              <div key={label} className="rounded-2xl border border-white/10 bg-white/[0.045] p-4">
-                <p className="text-sm font-semibold text-cyan-tlx">{label}</p>
-                <p className="mt-2 text-sm leading-5 text-slate-300">{value}</p>
+              <div key={label} className="min-h-36 rounded-[1.35rem] border border-white/10 bg-white/[0.055] p-5 shadow-[0_18px_54px_rgba(0,0,0,0.22)]">
+                <p className="text-base font-semibold text-cyan-tlx">{label}</p>
+                <p className="mt-3 text-lg font-semibold leading-7 text-slate-200">{value}</p>
               </div>
             ))}
           </motion.div>
@@ -683,13 +676,13 @@ function Meter({ label, value }: { label: string; value: string }) {
 
 function PlatformOverview() {
   return (
-    <Section id="product" eyebrow="Platform overview" title="One intelligence layer. Multiple retail surfaces." intro="TerpLogix connects product truth, live retail context, customer intent, and budtender service so operators can turn lab data into action across the entire sales floor.">
+    <Section id="product" eyebrow="Platform overview" title="One system for guidance, handoff, and retail output." intro="TerpLogix helps dispensaries turn complex product data into clear recommendations, staff-ready context, print materials, menus, displays, and analytics.">
       <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
         <DataFlowDiagram />
         <div className="glass rounded-3xl p-7">
-          <p className="text-3xl font-semibold leading-tight text-white">TLX does not replace the POS. It makes the product catalog smarter.</p>
+          <p className="text-3xl font-semibold leading-tight text-white">It does not replace your POS. It makes your product catalog smarter.</p>
           <p className="mt-5 leading-7 text-muted">
-            The platform complements existing retail systems by giving every product a richer intelligence layer: lab-backed explanation, active-store availability, guided matching, staff handoff context, print-ready merchandising, and intent analytics.
+            TLX adds a product intelligence layer on top of the store: lab-backed explanations, active availability, guided matching, staff handoff context, retail-ready materials, and intent analytics.
           </p>
           <div className="mt-8 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
             {["Lab data", "Retail inventory", "Customer intent", "Budtender service", "Signage + menus", "Analytics"].map((item) => (
@@ -1127,34 +1120,40 @@ function KioskJourneyStack() {
           ))}
         </div>
 
-        <div className="relative mt-7 grid grid-cols-2 gap-3 sm:block sm:min-h-[700px]">
-          {screens.map(([src, alt, label], index) => (
-            <div
-              key={src}
-              className={`relative w-full rounded-[1.35rem] border border-white/10 bg-obsidian shadow-[0_28px_90px_rgba(0,0,0,0.48)] sm:absolute ${
-                index === 0
-                  ? "z-10 sm:left-0 sm:top-8 sm:w-[46%] sm:rotate-[-4deg]"
-                  : index === 1
-                    ? "z-20 sm:right-0 sm:top-0 sm:w-[52%] sm:rotate-[3deg]"
-                    : index === 2
-                      ? "z-30 sm:left-[7%] sm:top-[38%] sm:w-[52%] sm:rotate-[2deg]"
-                      : "z-40 sm:bottom-0 sm:right-[2%] sm:w-[58%] sm:rotate-[-2deg]"
-              }`}
-            >
-              <Image
-                src={src}
-                alt={alt}
-                width={948}
-                height={1264}
-                loading="eager"
-                unoptimized
-                className="h-auto w-full rounded-[1.35rem]"
-              />
-              <span className="absolute left-3 top-3 rounded-full border border-cyan-tlx/25 bg-cyan-tlx/[0.12] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-cyan-100 backdrop-blur">
-                {label}
-              </span>
-            </div>
-          ))}
+        <div className="mt-7 grid gap-4">
+          <div className="rounded-[1.5rem] border border-cyan-tlx/20 bg-cyan-tlx/[0.075] p-5">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-tlx">Journey logic</p>
+            <p className="mt-3 text-2xl font-semibold leading-tight text-white">
+              A simple customer flow feeds the same staff and merchandising layer.
+            </p>
+            <p className="mt-3 text-sm leading-6 text-cyan-50/82">
+              Explore keeps the shopper experience simple while preserving the intent, refiners, ranked recommendations, and final shortlist as useful operational context.
+            </p>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {[
+              ["Goal selected", "The customer starts with desired effects, not product names."],
+              ["Refiners added", "Timing and body direction narrow the shelf."],
+              ["Ranked matches", "The system explains why products fit."],
+              ["Shortlist sent", "Staff receives useful context before service."]
+            ].map(([title, text]) => (
+              <div key={title} className="rounded-2xl border border-white/10 bg-white/[0.045] p-4">
+                <p className="font-semibold text-white">{title}</p>
+                <p className="mt-2 text-sm leading-6 text-muted">{text}</p>
+              </div>
+            ))}
+          </div>
+          <div className="overflow-hidden rounded-[1.35rem] border border-white/10 bg-obsidian shadow-[0_28px_90px_rgba(0,0,0,0.48)]">
+            <Image
+              src="/proof/kiosk-results.png"
+              alt="Customer Explore recommendations"
+              width={948}
+              height={1264}
+              loading="eager"
+              unoptimized
+              className="h-[360px] w-full object-cover object-top"
+            />
+          </div>
         </div>
       </div>
     </motion.article>
@@ -1270,8 +1269,8 @@ function PremiumVisual({ kind, compact = false }: { kind: "product" | "kiosk" | 
       alt: "Transparent premium product intelligence visual"
     },
     kiosk: {
-      src: "/generated/premium-kiosk-device-v2.png",
-      alt: "Transparent guided discovery kiosk visual"
+      src: "/generated/tlx-small-kiosk-tablet.png",
+      alt: "TerpLogix tablet kiosk guided discovery mockup"
     },
     display: {
       src: "/generated/premium-retail-surfaces-v2.png",
@@ -1443,7 +1442,7 @@ function FlowColumn({ title, items, align }: { title: string; items: string[]; a
 
 function ModularEcosystem() {
   return (
-    <Section id="modules" eyebrow="Modular ecosystem" title="A modular cannabis retail intelligence ecosystem." intro="Each TLX module has a clear role. Together, they turn product data and customer intent into a connected platform for sales, service, merchandising, displays, and analytics.">
+    <Section id="modules" eyebrow="Modular ecosystem" title="One retail brain. Separate tools." intro="Each TLX module has a simple job. Together, they help the store understand products, guide customers, support staff, publish retail materials, and learn from shopper intent.">
       <div className="glass relative mb-6 overflow-hidden rounded-[2rem] p-6 sm:p-8 lg:p-10">
         <div className="absolute inset-0 soft-grid opacity-25" />
         <div className="absolute -right-28 -top-28 h-80 w-80 rounded-full bg-cyan-tlx/[0.14] blur-3xl" />
@@ -1464,10 +1463,10 @@ function ModularEcosystem() {
               </div>
               <div>
                 <p className="max-w-3xl text-4xl font-semibold leading-tight text-white lg:text-5xl">
-                  One intelligence layer powering three connected retail systems.
+                  Three connected systems that move product truth through the store.
                 </p>
                 <p className="mt-5 max-w-3xl text-lg leading-8 text-muted">
-                  TLX is easier to understand as suites: intelligence that creates product truth, experiences that guide shoppers and staff, and retail surfaces that keep the store aligned.
+                  TLX is easiest to understand in three parts: product intelligence, guided service, and retail surfaces that stay aligned.
                 </p>
               </div>
             </div>
@@ -1490,13 +1489,13 @@ function ModularEcosystem() {
         ))}
       </motion.div>
 
-      <div className="mt-6 overflow-hidden rounded-[2rem] border border-cyan-tlx/20 bg-[radial-gradient(circle_at_20%_0%,rgba(0,215,232,0.12),transparent_32%),linear-gradient(135deg,rgba(0,215,232,0.08),rgba(125,78,255,0.06))] p-5 sm:p-6 lg:p-8">
-        <div className="grid items-center gap-6 lg:grid-cols-[0.7fr_1fr]">
+      <div className="mt-8 overflow-hidden rounded-[2.25rem] border border-cyan-tlx/20 bg-[radial-gradient(circle_at_18%_0%,rgba(0,215,232,0.16),transparent_34%),radial-gradient(circle_at_78%_18%,rgba(127,60,255,0.12),transparent_34%),linear-gradient(135deg,rgba(0,215,232,0.09),rgba(125,78,255,0.065))] p-6 shadow-[0_34px_110px_rgba(0,0,0,0.32)] sm:p-8 lg:p-10 xl:p-12">
+        <div className="grid items-center gap-8 xl:grid-cols-[0.54fr_1.46fr]">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-tlx">Connected operating loop</p>
-            <h3 className="mt-3 text-3xl font-semibold text-white lg:text-4xl">The modules are separate jobs, not separate silos.</h3>
-            <p className="mt-4 text-base leading-8 text-muted">
-              Product data becomes product truth, product truth powers customer and staff experiences, and every interaction feeds better merchandising and analytics.
+            <h3 className="mt-4 max-w-3xl text-4xl font-semibold leading-tight text-white lg:text-5xl">The modules work together instead of creating more busywork.</h3>
+            <p className="mt-5 max-w-3xl text-lg leading-9 text-muted lg:text-xl">
+              Product data becomes clear guidance. Guidance powers customers, staff, menus, signs, and analytics from the same source.
             </p>
           </div>
           <SystemFlowStrip />
@@ -1617,7 +1616,7 @@ function SuiteModuleRow({ module }: { module: (typeof modules)[number] }) {
   const proof = moduleProof[module.name];
 
   return (
-    <a href={`#showcase`} className="button-press block rounded-2xl border border-white/10 bg-white/[0.04] p-4 transition-colors duration-200 hover:border-cyan-tlx/30 hover:bg-cyan-tlx/[0.07]">
+    <a href={`#demo`} className="button-press block rounded-2xl border border-white/10 bg-white/[0.04] p-4 transition-colors duration-200 hover:border-cyan-tlx/30 hover:bg-cyan-tlx/[0.07]">
       <div className="flex items-start gap-3">
         <span className="flex h-10 w-10 flex-none items-center justify-center rounded-xl border border-white/10 bg-obsidian/[0.62] text-cyan-tlx">
           <Icon className="h-5 w-5" />
@@ -1733,12 +1732,14 @@ function SystemFlowStrip() {
   ] as const;
 
   return (
-    <div className="grid gap-3 sm:grid-cols-7">
+    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-7">
       {flow.map(([label, Icon], index) => (
-        <div key={label} className="relative rounded-2xl border border-white/10 bg-obsidian/[0.5] p-4 text-center">
-          <Icon className="mx-auto h-5 w-5 text-cyan-tlx" />
-          <p className="mt-3 text-sm font-semibold text-white">{label}</p>
-          {index < flow.length - 1 ? <ArrowRight className="absolute -right-4 top-1/2 hidden h-5 w-5 -translate-y-1/2 text-cyan-tlx/60 sm:block" /> : null}
+        <div key={label} className="relative flex min-h-32 flex-col items-center justify-center rounded-[1.45rem] border border-white/10 bg-obsidian/[0.56] p-5 text-center shadow-[0_18px_52px_rgba(0,0,0,0.2)]">
+          <span className="flex h-12 w-12 items-center justify-center rounded-2xl border border-cyan-tlx/20 bg-cyan-tlx/[0.08] text-cyan-tlx shadow-[0_0_24px_rgba(0,215,232,0.12)]">
+            <Icon className="h-6 w-6" />
+          </span>
+          <p className="mt-4 text-base font-semibold text-white">{label}</p>
+          {index < flow.length - 1 ? <ArrowRight className="absolute -right-5 top-1/2 z-10 hidden h-6 w-6 -translate-y-1/2 text-cyan-tlx/70 2xl:block" /> : null}
         </div>
       ))}
     </div>
@@ -2294,17 +2295,38 @@ function ExploreMockup() {
   return (
     <ProductMockupPanel title="Explore Guided Match" badge="Live Inventory">
       <div className="grid gap-4 lg:grid-cols-[0.9fr_1.1fr]">
-        <div className="relative min-h-[460px] overflow-hidden rounded-[1.5rem] border border-cyan-tlx/20 bg-cyan-tlx/[0.045]">
+        <div className="relative min-h-[560px] overflow-hidden rounded-[1.5rem] border border-cyan-tlx/20 bg-[radial-gradient(circle_at_50%_34%,rgba(0,215,232,0.18),transparent_38%),linear-gradient(145deg,rgba(3,7,14,0.94),rgba(14,24,45,0.86)_52%,rgba(35,21,72,0.72))]">
           <div className="absolute inset-0 soft-grid opacity-20" />
-          <Image
-            src="/proof/explore-product-detail-cutout.png"
-            alt="Real TLX Explore product detail"
-            width={502}
-            height={1240}
-            loading="eager"
-            unoptimized
-            className="absolute left-1/2 top-0 h-[118%] w-auto -translate-x-1/2 object-contain object-top drop-shadow-[0_28px_80px_rgba(0,0,0,0.42)]"
-          />
+          <div className="absolute left-1/2 top-[50%] h-[68%] w-[78%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-tlx/20 bg-cyan-tlx/[0.08] blur-[2px]" />
+          <div className="absolute left-8 right-8 top-8 rounded-3xl border border-white/10 bg-void/74 p-4 shadow-[0_30px_90px_rgba(0,0,0,0.34)] backdrop-blur-xl">
+            <div className="mb-3 flex items-center justify-between gap-3">
+              <span className="text-[0.64rem] font-semibold uppercase tracking-[0.18em] text-cyan-tlx">Product detail</span>
+              <span className="rounded-full border border-emerald-300/25 bg-emerald-300/[0.1] px-3 py-1 text-[0.62rem] font-semibold uppercase tracking-[0.14em] text-emerald-100">On floor</span>
+            </div>
+            <div className="h-[390px] overflow-hidden rounded-[1.25rem] border border-white/10 bg-[#050914]">
+              <Image
+                src="/proof/explore-product-detail-cutout.png"
+                alt="TerpLogix Explore product detail surface"
+                width={946}
+                height={1207}
+                loading="eager"
+                unoptimized
+                className="h-full w-full object-cover object-top"
+              />
+            </div>
+          </div>
+          <div className="absolute bottom-6 left-5 right-5 grid grid-cols-3 gap-2">
+            {[
+              ["Fit", "75"],
+              ["THC", "22.7%"],
+              ["Lead", "Pinene"]
+            ].map(([label, value]) => (
+              <div key={label} className="rounded-2xl border border-white/10 bg-void/76 px-3 py-3 text-center shadow-[0_18px_50px_rgba(0,0,0,0.32)] backdrop-blur-xl">
+                <p className="text-[0.58rem] font-semibold uppercase tracking-[0.16em] text-muted">{label}</p>
+                <p className="mt-1 text-sm font-semibold text-white">{value}</p>
+              </div>
+            ))}
+          </div>
         </div>
         <div className="space-y-3">
           <MiniStatus title="Recommendation state" value="Best match explained" icon={Sparkles} />
@@ -2328,6 +2350,36 @@ function ExploreMockup() {
         </div>
       </div>
     </ProductMockupPanel>
+  );
+}
+
+function KioskDeviceShowcase() {
+  return (
+    <div className="relative min-h-[620px] overflow-hidden rounded-[1.8rem] border border-cyan-tlx/20 bg-[radial-gradient(circle_at_50%_38%,rgba(0,215,232,0.18),transparent_34%),radial-gradient(circle_at_70%_58%,rgba(127,60,255,0.16),transparent_38%),linear-gradient(145deg,rgba(3,7,14,0.94),rgba(13,25,43,0.88)_52%,rgba(18,13,42,0.82))]">
+      <div className="absolute inset-0 soft-grid opacity-24" />
+      <div className="absolute left-1/2 top-[46%] h-[520px] w-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-tlx/18 bg-cyan-tlx/[0.055] orbit" />
+      <div className="absolute left-1/2 top-[46%] h-[400px] w-[690px] -translate-x-1/2 -translate-y-1/2 rounded-[999px] border border-violet-tlx/18 orbit-reverse" />
+      <div className="absolute left-[22%] top-[25%] h-3 w-3 rounded-full bg-cyan-tlx shadow-glow" />
+      <div className="absolute right-[19%] top-[36%] h-4 w-4 rounded-full bg-violet-tlx shadow-[0_0_34px_rgba(127,60,255,0.48)]" />
+      <div className="absolute bottom-[18%] left-[36%] h-3 w-3 rounded-full bg-emerald-300 shadow-[0_0_34px_rgba(89,255,210,0.42)]" />
+      <Image
+        src="/generated/tlx-small-kiosk-tablet.png"
+        alt="TerpLogix tablet kiosk guided discovery mockup"
+        width={1024}
+        height={1536}
+        loading="eager"
+        unoptimized
+        className="absolute left-1/2 top-[50%] h-[105%] w-auto -translate-x-1/2 -translate-y-1/2 object-contain drop-shadow-[0_54px_120px_rgba(0,0,0,0.62)]"
+      />
+      <div className="absolute left-5 top-6 rounded-2xl border border-cyan-tlx/25 bg-void/72 px-4 py-3 shadow-[0_18px_50px_rgba(0,0,0,0.32)] backdrop-blur-xl">
+        <p className="text-[0.64rem] font-semibold uppercase tracking-[0.18em] text-cyan-tlx">Explore kiosk</p>
+        <p className="mt-1 text-sm font-semibold text-white">Guided customer discovery</p>
+      </div>
+      <div className="absolute bottom-6 right-5 max-w-[230px] rounded-2xl border border-violet-tlx/25 bg-void/72 px-4 py-3 shadow-[0_18px_50px_rgba(0,0,0,0.32)] backdrop-blur-xl">
+        <p className="text-[0.64rem] font-semibold uppercase tracking-[0.18em] text-violet-200">Handoff ready</p>
+        <p className="mt-1 text-sm font-semibold leading-snug text-white">Intent and shortlist move to staff.</p>
+      </div>
+    </div>
   );
 }
 
@@ -2548,10 +2600,10 @@ function FeatureCard({ title, text, icon: Icon }: { title: string; text: string;
 
 function ExperienceBridge() {
   return (
-    <Section id="experience" eyebrow="Budtender + customer experience" title="Better discovery. Cleaner handoffs. More confident service." intro="The Serve Queue connects customer exploration to real floor service so staff receive selected products, goals, context, and shortlist before the conversation starts.">
-      <div className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
+    <Section id="experience" eyebrow="Customer + staff experience" title="Help shoppers choose. Help staff serve." intro="Explore guides customers by how they want to feel. Serve Queue gives staff the customer goal, shortlist, and product context before the conversation starts.">
+      <div className="grid gap-6">
         <CustomerStaffBridgeVisual />
-        <div className="grid gap-4">
+        <div className="grid gap-4 lg:grid-cols-2">
           <ExperienceLane
             title="Customer side"
             icon={TabletSmartphone}
@@ -2592,27 +2644,24 @@ function CustomerStaffBridgeVisual() {
           </span>
         </div>
 
-        <div className="relative min-h-[470px]">
-          <div className="absolute left-0 top-5 z-10 w-[48%] rotate-[-4deg] overflow-hidden rounded-[1.5rem] border border-white/10 bg-obsidian shadow-[0_30px_90px_rgba(0,0,0,0.48)]">
-            <Image
-              src="/proof/kiosk-results.png"
-              alt="Customer Explore recommendations"
-              width={948}
-              height={1264}
-              loading="eager"
-              unoptimized
-              className="h-auto w-full rounded-[1.5rem]"
-            />
-          </div>
-          <div className="absolute right-0 top-20 z-20 w-[52%] overflow-hidden rounded-[1.5rem] border border-cyan-tlx/20 bg-obsidian shadow-[0_34px_110px_rgba(0,0,0,0.5)]">
+        <div className="grid gap-4 lg:grid-cols-2">
+          <KioskDeviceShowcase />
+          <div className="relative overflow-hidden rounded-[1.7rem] border border-cyan-tlx/20 bg-obsidian/70 p-4 shadow-[0_34px_110px_rgba(0,0,0,0.5)]">
+            <div className="absolute inset-0 soft-grid opacity-12" />
             <div className="border-b border-white/10 bg-cyan-tlx/[0.08] px-4 py-3">
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-tlx">Serve Queue</p>
               <p className="mt-1 text-lg font-semibold text-white">Staff context ready</p>
             </div>
-            <ServeQueueMini />
-          </div>
-          <div className="absolute left-[38%] top-[45%] z-30 rounded-full border border-cyan-tlx/30 bg-cyan-tlx/[0.12] px-5 py-3 text-sm font-semibold text-cyan-50 shadow-glow backdrop-blur">
-            Send shortlist <ArrowRight className="ml-2 inline h-4 w-4" />
+            <div className="relative mt-4">
+              <ServeQueueMini />
+              <div className="mt-4 rounded-2xl border border-violet-tlx/20 bg-violet-tlx/[0.075] p-4">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-violet-200">Connected context</p>
+                <p className="mt-2 text-sm leading-6 text-slate-200">The device captures intent; the queue gives staff the goal, shortlist, and product context before the counter conversation starts.</p>
+              </div>
+              <div className="mt-4 rounded-full border border-cyan-tlx/30 bg-cyan-tlx/[0.12] px-5 py-3 text-center text-sm font-semibold text-cyan-50 shadow-glow backdrop-blur">
+                Send shortlist <ArrowRight className="ml-2 inline h-4 w-4" />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -2622,31 +2671,27 @@ function CustomerStaffBridgeVisual() {
 
 function ExperienceLane({ title, items, icon: Icon }: { title: string; items: string[]; icon: IconComponent }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, transform: "translateY(22px)" }}
-      whileInView={{ opacity: 1, transform: "translateY(0px)" }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
-      className="relative overflow-hidden rounded-[1.75rem] border border-white/10 bg-[linear-gradient(145deg,rgba(255,255,255,0.06),rgba(255,255,255,0.018))] p-5 shadow-[0_24px_78px_rgba(0,0,0,0.24)]"
+    <div
+      className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-[radial-gradient(circle_at_84%_0%,rgba(0,215,232,0.11),transparent_32%),linear-gradient(145deg,rgba(255,255,255,0.07),rgba(255,255,255,0.02))] p-6 shadow-[0_28px_86px_rgba(0,0,0,0.26)] sm:p-7 lg:p-8"
     >
       <div className="absolute -right-16 -top-16 h-40 w-40 rounded-full bg-cyan-tlx/[0.1] blur-3xl" />
       <div className="relative">
-        <div className="mb-5 flex items-center gap-3">
-          <span className="flex h-12 w-12 items-center justify-center rounded-2xl border border-cyan-tlx/20 bg-cyan-tlx/[0.08] text-cyan-tlx">
-            <Icon className="h-5 w-5" />
+        <div className="mb-7 flex items-center gap-4">
+          <span className="flex h-16 w-16 items-center justify-center rounded-2xl border border-cyan-tlx/22 bg-cyan-tlx/[0.09] text-cyan-tlx shadow-[0_0_28px_rgba(0,215,232,0.14)]">
+            <Icon className="h-7 w-7" />
           </span>
-          <h3 className="text-2xl font-semibold text-white">{title}</h3>
+          <h3 className="text-3xl font-semibold text-white lg:text-4xl">{title}</h3>
         </div>
-        <div className="space-y-2">
+        <div className="space-y-3">
         {items.map((item) => (
-          <p key={item} className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-slate-300">
-            <BadgeCheck className="h-4 w-4 flex-none text-cyan-tlx" />
+          <p key={item} className="flex min-h-16 items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.045] px-5 py-4 text-base leading-7 text-slate-200 lg:text-lg">
+            <BadgeCheck className="h-5 w-5 flex-none text-cyan-tlx" />
             {item}
           </p>
         ))}
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }
 
@@ -2659,23 +2704,23 @@ function CustomizationSection() {
   ] as const;
 
   return (
-    <Section id="customization" eyebrow="White-label retail experience" title="Your retail experience, powered by TLX." intro="Stores can customize logos, colors, customer-facing views, kiosk surfaces, menus, signage, and print materials so the experience feels native to their retail identity while TLX powers the intelligence underneath.">
-      <div className="grid gap-8 lg:grid-cols-[0.76fr_1.24fr]">
+    <Section id="customization" eyebrow="Retail surfaces" title="Brand-ready surfaces for every part of the store." intro="Use the same product intelligence across kiosk screens, Discover views, print cards, shelf signs, menus, and display surfaces while keeping the store experience on brand.">
+      <div className="grid gap-10 lg:grid-cols-[0.82fr_1.18fr]">
         <div>
-          <p className="text-3xl font-semibold text-white">Your brand on the outside. TLX intelligence underneath.</p>
-          <p className="mt-5 leading-7 text-muted">
-            TLX does not make your customers feel like they left your ecosystem. It helps make your ecosystem smarter.
+          <p className="max-w-3xl text-4xl font-semibold leading-tight text-white lg:text-5xl">One product record can power every customer-facing surface.</p>
+          <p className="mt-6 max-w-3xl text-lg leading-9 text-muted lg:text-xl">
+            When a product changes, the store should not have to rewrite cards, menus, kiosk content, and display copy by hand. TLX helps keep those surfaces aligned.
           </p>
-          <div className="mt-7 grid gap-3">
+          <div className="mt-8 grid gap-4">
             {brandControls.map(([title, text, Icon]) => (
-              <div key={title} className="group rounded-2xl border border-white/10 bg-white/[0.04] p-4 transition-colors duration-200 hover:border-cyan-tlx/30 hover:bg-cyan-tlx/[0.055]">
-                <div className="flex items-start gap-3">
-                  <span className="flex h-11 w-11 flex-none items-center justify-center rounded-xl border border-cyan-tlx/20 bg-cyan-tlx/[0.08] text-cyan-tlx">
-                    <Icon className="h-5 w-5" />
+              <div key={title} className="group rounded-[1.35rem] border border-white/10 bg-white/[0.045] p-5 transition-colors duration-300 hover:border-cyan-tlx/30 hover:bg-cyan-tlx/[0.055] lg:p-6">
+                <div className="flex items-start gap-4">
+                  <span className="flex h-14 w-14 flex-none items-center justify-center rounded-2xl border border-cyan-tlx/20 bg-cyan-tlx/[0.08] text-cyan-tlx shadow-[0_0_24px_rgba(0,215,232,0.12)]">
+                    <Icon className="h-6 w-6" />
                   </span>
                   <div>
-                    <p className="font-semibold text-white">{title}</p>
-                    <p className="mt-1 text-sm leading-6 text-muted">{text}</p>
+                    <p className="text-xl font-semibold text-white">{title}</p>
+                    <p className="mt-2 text-base leading-7 text-muted">{text}</p>
                   </div>
                 </div>
               </div>
@@ -2883,13 +2928,13 @@ function VisibilitySurfaceTile({ title, status, src, icon: Icon, index }: { titl
 
 function AnalyticsSection() {
   return (
-    <Section id="analytics" eyebrow="TLX Analytics" title="See what customers wanted before they bought." intro="Most systems stop at the transaction. TLX Analytics helps operators understand customer goals, product interest, comparisons, final picks, handoffs, and abandoned sessions before the sale is complete.">
+    <Section id="analytics" eyebrow="Intent analytics" title="See what shoppers wanted before they bought." intro="Most systems only show the sale. TLX helps operators see shopper goals, product interest, comparisons, saves, handoffs, and abandoned demand before the transaction happens.">
       <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
         <AnalyticsDashboard />
         <div className="glass rounded-3xl p-7">
-          <p className="text-3xl font-semibold text-white">POS analytics show what sold. TLX Analytics reveals what customers were trying to find.</p>
+          <p className="text-3xl font-semibold text-white">Sales reports show what sold. TLX shows what people were trying to find.</p>
           <p className="mt-5 leading-7 text-muted">
-            Intent signals help operators see demand versus sales mismatch, hidden gems, product gaps, abandoned discovery sessions, and where budtender handoffs convert.
+            Intent signals help operators spot demand gaps, hidden gems, abandoned sessions, strong handoffs, and product opportunities the POS can miss.
           </p>
         </div>
       </div>
@@ -2942,16 +2987,16 @@ function AnalyticsCard({ title, value, stat, bars }: { title: string; value: str
 
 function IntegrationSection() {
   return (
-    <Section id="integrations" eyebrow="TLX Rosetta" title="Built to work with real retail systems." intro="TLX Rosetta is the provider-aware translation layer that helps interpret and normalize product, inventory, lab, and retail data from external systems.">
-      <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
-        <div className="space-y-5">
-          <p className="text-3xl font-semibold text-white">Rosetta understands different systems so operators do not have to rebuild their workflow around TLX.</p>
-          <p className="leading-7 text-muted">
-            Provider-neutral by design, Rosetta is built around schema interpretation, sandbox provider environments, POS data shapes, multi-store context, and a future integration foundation.
+    <Section id="integrations" eyebrow="Integrations" title="Built around real dispensary data." intro="TLX Rosetta helps translate provider, POS, inventory, product, and lab data into one cleaner product language for the store.">
+      <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr]">
+        <div className="space-y-6">
+          <p className="max-w-5xl text-4xl font-semibold leading-tight text-white lg:text-5xl">Different systems should not force staff to do the same work twice.</p>
+          <p className="max-w-5xl text-lg leading-9 text-muted lg:text-xl">
+            Rosetta is designed to understand different data shapes, normalize product records, and support a cleaner integration foundation over time.
           </p>
-          <div className="grid gap-3 sm:grid-cols-2">
+          <div className="grid gap-4 sm:grid-cols-2">
             {["Provider-aware", "Schema-based", "Sandbox validation", "Multi-store context", "Designed to support integrations", "Normalized TLX language"].map((item) => (
-              <span key={item} className="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-slate-300">{item}</span>
+              <span key={item} className="flex min-h-16 items-center rounded-[1.25rem] border border-white/10 bg-white/[0.045] px-5 py-4 text-base font-semibold text-slate-200 shadow-[0_16px_46px_rgba(0,0,0,0.18)] lg:text-lg">{item}</span>
             ))}
           </div>
         </div>
@@ -3047,7 +3092,7 @@ function RosettaDataPacket({ title, text, icon: Icon }: { title: string; text: s
 
 function CTASection() {
   return (
-    <Section id="demo" eyebrow="Request demo" title="Ready to see TLX in action?" intro="See how TerpLogix helps turn product truth, customer intent, and retail context into better guidance, smoother handoffs, smarter merchandising, print-ready signage, synchronized menus, live display surfaces, and actionable analytics.">
+    <Section id="demo" eyebrow="Request demo" title="See how TLX could work in your store." intro="Walk through product intelligence, guided discovery, staff handoff, retail surfaces, integrations, and analytics in one premium demo.">
       <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr]">
         <ClosingDemoPanel />
         <DemoForm />
@@ -3269,20 +3314,30 @@ function Section({ id, eyebrow, title, intro, children }: { id: string; eyebrow:
   return (
     <section id={id} className="relative scroll-mt-28 py-16 sm:scroll-mt-32 sm:py-24 lg:scroll-mt-36 lg:py-28">
       <div className="section-shell">
-        <motion.div
-          initial={{ opacity: 0, transform: "translateY(18px)" }}
-          whileInView={{ opacity: 1, transform: "translateY(0px)" }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
-          className="mb-10 max-w-5xl sm:mb-14"
+        <div
+          className="mb-10 grid max-w-none gap-6 sm:mb-14 lg:grid-cols-[minmax(0,1.12fr)_minmax(320px,0.72fr)] lg:items-end lg:gap-10 xl:gap-14"
         >
-          <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-cyan-tlx/25 bg-cyan-tlx/8 px-4 py-2 text-xs font-semibold uppercase text-cyan-tlx">
-            <Wand2 className="h-4 w-4" />
-            {eyebrow}
-          </p>
-          <h2 className="font-display text-[2.55rem] font-semibold leading-[1.08] text-white sm:text-5xl sm:leading-tight lg:text-7xl">{title}</h2>
-          <p className="mt-5 max-w-4xl text-lg leading-8 text-muted sm:mt-6 sm:text-xl sm:leading-9 lg:text-2xl lg:leading-10">{intro}</p>
-        </motion.div>
+          <div className="section-title-set">
+            <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-cyan-tlx/25 bg-cyan-tlx/8 px-4 py-2 text-xs font-semibold uppercase text-cyan-tlx">
+              <Wand2 className="h-4 w-4" />
+              {eyebrow}
+            </p>
+            <h2 className="font-display text-[2.55rem] font-semibold leading-[1.08] text-white sm:text-5xl sm:leading-tight lg:text-7xl">{title}</h2>
+          </div>
+          <div className="relative overflow-hidden pt-5 lg:py-3 lg:pl-10 xl:pl-14">
+            <span
+              aria-hidden="true"
+              className="absolute left-0 top-0 h-[3px] w-full bg-muted shadow-[0_0_22px_rgba(145,163,184,0.74)] lg:hidden"
+            />
+            <span
+              aria-hidden="true"
+              className="absolute bottom-0 left-0 top-0 hidden w-[3px] bg-muted shadow-[0_0_22px_rgba(145,163,184,0.74)] lg:block"
+            />
+            <p className="section-copy-origin max-w-2xl text-lg leading-8 text-muted sm:text-xl sm:leading-9 lg:text-2xl lg:leading-10">
+              {intro}
+            </p>
+          </div>
+        </div>
         {children}
       </div>
     </section>
