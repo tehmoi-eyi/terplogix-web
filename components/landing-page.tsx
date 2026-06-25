@@ -24,12 +24,10 @@ import {
   Printer,
   QrCode,
   Radar,
-  ScanLine,
   Send,
   Sparkles,
   Store,
   TabletSmartphone,
-  Wand2,
   X,
   Zap
 } from "lucide-react";
@@ -270,8 +268,10 @@ export function LandingPage() {
       <Hero />
       <OperatorROIBand />
       <PlatformOverview />
+      <EarlyProductProofBand />
       <ScienceToStoreSection />
       <ModularEcosystem />
+      <OperatingLayerBreak />
       <ExperienceBridge />
       <CustomizationSection />
       <AnalyticsSection />
@@ -414,7 +414,7 @@ function Hero() {
       <div className="absolute left-1/2 top-24 h-[620px] w-[620px] -translate-x-1/2 rounded-full bg-cyan-tlx/10 blur-3xl" />
       <div className="absolute right-0 top-1/3 h-[520px] w-[420px] rounded-full bg-violet-tlx/10 blur-3xl" />
 
-      <div className="section-shell relative grid min-h-[calc(100vh-5.5rem)] items-center gap-8 py-8 sm:gap-10 sm:py-12 lg:grid-cols-[0.92fr_1.08fr] xl:gap-14">
+      <div className="section-shell relative grid min-h-[calc(100svh-5.5rem)] items-start gap-6 py-7 sm:gap-9 sm:py-10 lg:min-h-[calc(100vh-5.5rem)] lg:grid-cols-[0.86fr_1.14fr] lg:items-center xl:gap-12">
         <motion.div
           variants={stagger}
           initial="hidden"
@@ -433,16 +433,11 @@ function Hero() {
             />
           </motion.div>
 
-          <motion.p variants={reveal} className="mb-4 inline-flex items-center gap-2 rounded-full border border-cyan-tlx/25 bg-cyan-tlx/8 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-cyan-tlx">
-            <ScanLine className="h-4 w-4" />
-            Premium cannabis retail intelligence
-          </motion.p>
-
-          <motion.h1 variants={reveal} className="max-w-5xl font-display text-[3.35rem] font-semibold leading-[0.98] text-white sm:text-7xl lg:text-8xl 2xl:text-[6.8rem]">
+          <motion.h1 variants={reveal} className="max-w-5xl font-display text-[3rem] font-semibold leading-[1] text-white sm:text-6xl lg:text-[4.95rem] 2xl:text-[5.7rem]">
             Smarter product guidance for modern dispensaries.
           </motion.h1>
 
-          <motion.p variants={reveal} className="mt-6 max-w-3xl text-xl leading-9 text-slate-200 sm:text-2xl sm:leading-10">
+          <motion.p variants={reveal} className="mt-5 max-w-3xl text-xl leading-9 text-slate-200 sm:text-[1.35rem] sm:leading-9">
             TerpLogix turns lab data, inventory, shopper goals, and staff handoffs into one premium retail system.
           </motion.p>
 
@@ -450,16 +445,7 @@ function Hero() {
             Products become easier to explain. Customers get better recommendations. Staff start with context. Operators see what shoppers wanted before the sale.
           </motion.p>
 
-          <motion.div variants={reveal} className="mt-5 flex flex-col gap-3 sm:flex-row">
-            <a href="#demo" className="button-press inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-bold text-void shadow-glow">
-              Request a Demo <ArrowRight className="h-4 w-4" />
-            </a>
-            <a href="#science-to-store" className="button-press inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-white/5 px-6 py-3.5 text-sm font-semibold text-white">
-              See How It Works <Radar className="h-4 w-4" />
-            </a>
-          </motion.div>
-
-          <motion.div variants={reveal} className="relative mt-5 h-28 overflow-hidden rounded-[1.5rem] border border-cyan-tlx/20 bg-cyan-tlx/[0.035] sm:hidden">
+          <motion.div variants={reveal} className="relative mt-5 h-32 overflow-hidden rounded-[1.5rem] border border-cyan-tlx/24 bg-cyan-tlx/[0.055] shadow-[0_24px_80px_rgba(0,0,0,0.28)] sm:hidden">
             <div className="absolute inset-0 soft-grid opacity-25" />
             <Image src="/generated/hero-signal-halo.png" alt="" width={900} height={900} loading="eager" unoptimized className="hero-signal-halo absolute left-1/2 top-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 object-contain opacity-70" />
             <Image src="/generated/hero-network-shell.png" alt="" width={900} height={900} loading="eager" unoptimized className="hero-network-shell absolute left-1/2 top-1/2 h-52 w-52 -translate-x-1/2 -translate-y-1/2 object-contain" />
@@ -470,16 +456,25 @@ function Hero() {
             </div>
           </motion.div>
 
-          <motion.div variants={reveal} className="mt-8 hidden max-w-6xl gap-4 sm:grid sm:grid-cols-2 xl:grid-cols-4">
+          <motion.div variants={reveal} className="mt-5 flex flex-col gap-3 sm:flex-row">
+            <a href="#demo" className="button-press inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan-tlx to-violet-tlx px-6 py-3.5 text-sm font-bold text-void shadow-glow sm:bg-white">
+              Request a Demo <ArrowRight className="h-4 w-4" />
+            </a>
+            <a href="#science-to-store" className="button-press inline-flex items-center justify-center gap-2 rounded-full border border-white/18 bg-white/[0.08] px-6 py-3.5 text-sm font-semibold text-white shadow-[0_14px_46px_rgba(0,0,0,0.22)]">
+              See How It Works <Radar className="h-4 w-4" />
+            </a>
+          </motion.div>
+
+          <motion.div variants={reveal} className="mt-6 hidden max-w-6xl gap-3 sm:grid sm:grid-cols-2 xl:grid-cols-4">
             {[
               ["COA to context", "Lab truth becomes guidance"],
               ["Guided sales", "Effect-led recommendations"],
               ["Surface sync", "Cards, menus, kiosks"],
               ["Intent signal", "Demand before purchase"]
             ].map(([label, value]) => (
-              <div key={label} className="min-h-36 rounded-[1.35rem] border border-white/10 bg-white/[0.055] p-5 shadow-[0_18px_54px_rgba(0,0,0,0.22)]">
+              <div key={label} className="min-h-28 rounded-[1.25rem] border border-white/10 bg-white/[0.055] p-4 shadow-[0_18px_54px_rgba(0,0,0,0.22)]">
                 <p className="text-base font-semibold text-cyan-tlx">{label}</p>
-                <p className="mt-3 text-lg font-semibold leading-7 text-slate-200">{value}</p>
+                <p className="mt-2 text-base font-semibold leading-6 text-slate-200">{value}</p>
               </div>
             ))}
           </motion.div>
@@ -516,7 +511,7 @@ function HeroVisual() {
       initial={{ opacity: 0, transform: "translateY(18px) scale(0.96)" }}
       animate={{ opacity: 1, transform: "translateY(0px) scale(1)" }}
       transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1], delay: 0.18 }}
-      className="relative mx-auto h-[500px] w-full max-w-[720px] sm:h-[620px] lg:h-[700px] xl:max-w-[780px]"
+      className="relative mx-auto h-[460px] w-full max-w-[720px] sm:h-[560px] lg:h-[620px] xl:max-w-[780px]"
     >
       <div className="pointer-events-none absolute inset-x-8 top-16 h-72 rounded-full bg-cyan-tlx/10 blur-3xl sm:inset-x-16" />
       <div className="pointer-events-none absolute bottom-12 left-1/2 h-56 w-3/4 -translate-x-1/2 rounded-full bg-violet-tlx/10 blur-3xl" />
@@ -578,7 +573,7 @@ function HeroVisual() {
         <div className="hero-core-glow" />
       </div>
 
-      <HeroPanel className="left-0 top-10 hidden w-56 sm:block" delay={0.2}>
+      <HeroPanel className="left-0 top-8 hidden w-56 sm:block" delay={0.2}>
         <MiniStatus title="Lab input" value="COA parsed" icon={FileText} />
         <div className="mt-4 rounded-xl border border-white/10 bg-white/5 p-3">
           <div className="mb-2 flex items-center justify-between text-[11px] text-muted">
@@ -590,7 +585,7 @@ function HeroVisual() {
         </div>
       </HeroPanel>
 
-      <HeroPanel className="-right-2 top-14 hidden w-72 sm:block lg:w-80" delay={0.34}>
+      <HeroPanel className="-right-2 top-12 hidden w-72 sm:block lg:w-80" delay={0.34}>
         <MiniStatus title="Print output" value="Retail card ready" icon={Printer} />
         <div className="mt-4 overflow-hidden rounded-xl bg-white shadow-[0_18px_46px_rgba(0,0,0,0.34)]">
           <Image
@@ -605,9 +600,9 @@ function HeroVisual() {
         </div>
       </HeroPanel>
 
-      <HeroPanel className="bottom-16 left-0 hidden w-72 md:block lg:w-80" delay={0.46}>
+      <HeroPanel className="bottom-8 left-0 hidden w-72 md:block lg:w-80" delay={0.46}>
         <MiniStatus title="Explore output" value="Product fit explained" icon={TabletSmartphone} />
-        <div className="mt-4 h-56 overflow-hidden rounded-xl border border-cyan-tlx/20 bg-obsidian">
+        <div className="mt-4 h-44 overflow-hidden rounded-xl border border-cyan-tlx/20 bg-obsidian">
           <Image
             src="/proof/explore-product-detail-cutout.png"
             alt="TLX Explore product detail generated from product intelligence"
@@ -620,7 +615,7 @@ function HeroVisual() {
         </div>
       </HeroPanel>
 
-      <HeroPanel className="bottom-8 right-2 hidden w-60 md:block" delay={0.56}>
+      <HeroPanel className="bottom-2 right-2 hidden w-60 md:block" delay={0.56}>
         <MiniStatus title="Serve Queue" value="Handoff ready" icon={Send} />
         <div className="mt-4 rounded-xl border border-white/10 bg-white/5 p-3 text-xs leading-5 text-muted">
           Goal: relaxation<br />
@@ -714,11 +709,7 @@ function EarlyProductProofBand() {
           <div className="absolute left-1/2 top-1/2 h-[720px] w-[720px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-tlx/[0.07] blur-3xl" />
           <div className="relative grid items-center gap-10 xl:grid-cols-[0.42fr_0.58fr]">
             <div>
-              <p className="inline-flex items-center gap-2 rounded-full border border-cyan-tlx/25 bg-cyan-tlx/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-cyan-tlx">
-                <ScanLine className="h-4 w-4" />
-                Product proof
-              </p>
-              <h2 className="mt-5 max-w-4xl text-4xl font-semibold leading-tight text-white sm:text-5xl lg:text-6xl">
+              <h2 className="max-w-4xl text-4xl font-semibold leading-tight text-white sm:text-5xl lg:text-6xl">
                 From lab scan to retail-ready in minutes.
               </h2>
               <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-300">
@@ -761,11 +752,7 @@ function HyperframesReelSection() {
             viewport={{ once: true, margin: "-90px" }}
             transition={{ duration: 0.62, ease: [0.23, 1, 0.32, 1] }}
           >
-            <p className="inline-flex items-center gap-2 rounded-full border border-cyan-tlx/25 bg-cyan-tlx/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-cyan-tlx">
-              <Sparkles className="h-4 w-4" />
-              Motion system
-            </p>
-            <h2 className="mt-5 max-w-3xl text-4xl font-semibold leading-tight text-white sm:text-5xl lg:text-6xl">
+            <h2 className="max-w-3xl text-4xl font-semibold leading-tight text-white sm:text-5xl lg:text-6xl">
               See the platform as one connected retail layer.
             </h2>
             <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-300">
@@ -921,11 +908,7 @@ function ScienceToStoreSection() {
           <div className="relative z-10 grid gap-9 xl:grid-cols-[0.4fr_0.6fr]">
             <div className="flex flex-col justify-between gap-10">
               <div>
-                <p className="inline-flex items-center gap-2 rounded-full border border-cyan-tlx/25 bg-cyan-tlx/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-cyan-tlx">
-                  <Network className="h-4 w-4" />
-                  Science to store
-                </p>
-                <h2 className="mt-5 max-w-4xl font-display text-[2.6rem] font-semibold leading-[1.02] text-white sm:text-6xl lg:text-7xl">
+                <h2 className="max-w-4xl font-display text-[2.6rem] font-semibold leading-[1.02] text-white sm:text-6xl lg:text-7xl">
                   One record. Every retail surface.
                 </h2>
                 <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300 sm:text-xl sm:leading-9">
@@ -1003,11 +986,7 @@ function RetailWorkflowProof() {
           transition={{ duration: 0.58, ease: [0.23, 1, 0.32, 1] }}
           className="mb-10 max-w-6xl"
         >
-          <p className="inline-flex items-center gap-2 rounded-full border border-cyan-tlx/25 bg-cyan-tlx/8 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-cyan-tlx">
-            <Fingerprint className="h-4 w-4" />
-            Real workflow proof
-          </p>
-          <h2 className="mt-5 max-w-6xl font-display text-[2.35rem] font-semibold leading-[1.08] text-white sm:text-5xl lg:text-6xl">
+          <h2 className="max-w-6xl font-display text-[2.35rem] font-semibold leading-[1.08] text-white sm:text-5xl lg:text-6xl">
             Operator workflows and customer journeys, connected by the same product truth.
           </h2>
           <p className="mt-5 max-w-5xl text-lg leading-8 text-muted sm:text-xl sm:leading-9">
@@ -1210,9 +1189,6 @@ function MediaProofStrip() {
           <div className="relative h-72 overflow-hidden bg-cyan-tlx/5">
             <ProofStripVisual kind={card.visual as "print" | "explore" | "display"} />
             <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-transparent to-transparent" />
-            <span className="absolute left-5 top-5 rounded-full border border-cyan-tlx/25 bg-cyan-tlx/12 px-3 py-1 text-xs font-semibold uppercase text-cyan-100 backdrop-blur">
-              {card.label}
-            </span>
           </div>
           <div className="p-6">
             <h3 className="text-2xl font-semibold leading-tight text-white">{card.title}</h3>
@@ -1449,10 +1425,6 @@ function ModularEcosystem() {
         <div className="absolute -bottom-32 left-1/3 h-80 w-80 rounded-full bg-violet-tlx/[0.12] blur-3xl" />
         <div className="relative grid items-center gap-10 xl:grid-cols-[0.72fr_1fr]">
           <div>
-            <div className="mb-6 inline-flex items-center gap-3 rounded-full border border-cyan-tlx/20 bg-cyan-tlx/[0.08] px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-cyan-tlx">
-              <Network className="h-4 w-4" />
-              System architecture
-            </div>
             <div className="flex flex-col gap-6 sm:flex-row sm:items-start">
               <div className="relative flex h-36 w-36 flex-none items-center justify-center">
                 <div className="absolute inset-0 rounded-full border border-cyan-tlx/20" />
@@ -1492,8 +1464,7 @@ function ModularEcosystem() {
       <div className="mt-8 overflow-hidden rounded-[2.25rem] border border-cyan-tlx/20 bg-[radial-gradient(circle_at_18%_0%,rgba(0,215,232,0.16),transparent_34%),radial-gradient(circle_at_78%_18%,rgba(127,60,255,0.12),transparent_34%),linear-gradient(135deg,rgba(0,215,232,0.09),rgba(125,78,255,0.065))] p-6 shadow-[0_34px_110px_rgba(0,0,0,0.32)] sm:p-8 lg:p-10 xl:p-12">
         <div className="grid items-center gap-8 xl:grid-cols-[0.54fr_1.46fr]">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-tlx">Connected operating loop</p>
-            <h3 className="mt-4 max-w-3xl text-4xl font-semibold leading-tight text-white lg:text-5xl">The modules work together instead of creating more busywork.</h3>
+            <h3 className="max-w-3xl text-4xl font-semibold leading-tight text-white lg:text-5xl">The modules work together instead of creating more busywork.</h3>
             <p className="mt-5 max-w-3xl text-lg leading-9 text-muted lg:text-xl">
               Product data becomes clear guidance. Guidance powers customers, staff, menus, signs, and analytics from the same source.
             </p>
@@ -1571,7 +1542,6 @@ function ModuleSuiteCard({ suite, index }: { suite: (typeof moduleSuites)[number
           <span className="flex h-14 w-14 items-center justify-center rounded-2xl border border-cyan-tlx/20 bg-cyan-tlx/[0.08] text-cyan-tlx shadow-[0_0_28px_rgba(0,215,232,0.12)]">
             <Icon className="h-6 w-6" />
           </span>
-          <span className="rounded-full border border-violet-tlx/25 bg-violet-tlx/[0.1] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-violet-100">{suite.metric}</span>
         </div>
         <p className="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-tlx">{suite.kicker}</p>
         <h3 className="mt-3 text-2xl font-semibold text-white sm:text-3xl">{suite.title}</h3>
@@ -1624,7 +1594,6 @@ function SuiteModuleRow({ module }: { module: (typeof modules)[number] }) {
         <div>
           <div className="flex flex-wrap items-center gap-2">
             <p className="font-semibold text-white">{module.name}</p>
-            <span className="rounded-full border border-white/10 bg-white/[0.05] px-2.5 py-1 text-[10px] uppercase tracking-[0.12em] text-muted">{module.label}</span>
           </div>
           <p className="mt-2 hidden text-sm leading-6 text-slate-300 sm:block">{proof.focus}</p>
         </div>
@@ -1771,7 +1740,6 @@ function ModuleCard({ name, label, text, icon: Icon, index }: (typeof modules)[n
             <span className="flex h-14 w-14 flex-none items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-cyan-tlx transition-colors duration-200 group-hover:border-cyan-tlx/30">
               <Icon className="h-6 w-6" />
             </span>
-            <span className="rounded-full border border-violet-tlx/25 bg-violet-tlx/10 px-3 py-1 text-[11px] uppercase text-violet-200">{label}</span>
           </div>
 
           <h3 className="text-3xl font-semibold text-white">{name}</h3>
@@ -2575,9 +2543,6 @@ function ExecutiveProofCard({ title, text, icon: Icon, index }: { title: string;
           <span className="flex h-12 w-12 items-center justify-center rounded-2xl border border-cyan-tlx/20 bg-cyan-tlx/[0.08] text-cyan-tlx">
             <Icon className="h-5 w-5" />
           </span>
-          <span className="rounded-full border border-white/10 bg-white/[0.045] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-muted">
-            0{index + 1}
-          </span>
         </div>
         <h3 className="text-xl font-semibold leading-tight text-white sm:text-2xl">{title}</h3>
         <p className="mt-3 text-sm leading-6 text-muted sm:text-base sm:leading-7">{text}</p>
@@ -2634,8 +2599,7 @@ function CustomerStaffBridgeVisual() {
       <div className="relative z-10">
         <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-tlx">Intent handoff loop</p>
-            <h3 className="mt-3 text-3xl font-semibold leading-tight text-white sm:text-4xl">
+            <h3 className="text-3xl font-semibold leading-tight text-white sm:text-4xl">
               Customer intent becomes budtender-ready context.
             </h3>
           </div>
@@ -2931,14 +2895,73 @@ function AnalyticsSection() {
     <Section id="analytics" eyebrow="Intent analytics" title="See what shoppers wanted before they bought." intro="Most systems only show the sale. TLX helps operators see shopper goals, product interest, comparisons, saves, handoffs, and abandoned demand before the transaction happens.">
       <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
         <AnalyticsDashboard />
-        <div className="glass rounded-3xl p-7">
-          <p className="text-3xl font-semibold text-white">Sales reports show what sold. TLX shows what people were trying to find.</p>
-          <p className="mt-5 leading-7 text-muted">
-            Intent signals help operators spot demand gaps, hidden gems, abandoned sessions, strong handoffs, and product opportunities the POS can miss.
-          </p>
-        </div>
+        <AnalyticsInsightPanel />
       </div>
     </Section>
+  );
+}
+
+function AnalyticsInsightPanel() {
+  const signals = [
+    ["Before checkout", "Goals, saves, compares, and abandoned product interest."],
+    ["Before restock", "Demand gaps and hidden gems that may not appear in sales reports."],
+    ["Before staff handoff", "What the customer explored before the counter conversation starts."]
+  ] as const;
+
+  return (
+    <div className="glass relative overflow-hidden rounded-3xl p-6 shadow-[0_34px_110px_rgba(0,0,0,0.3)] sm:p-7 lg:p-8">
+      <div className="absolute inset-0 soft-grid opacity-18" />
+      <div className="absolute -right-20 -top-20 h-56 w-56 rounded-full bg-violet-tlx/[0.13] blur-3xl" />
+      <div className="relative">
+        <div className="rounded-[1.65rem] border border-cyan-tlx/20 bg-[radial-gradient(circle_at_12%_0%,rgba(0,215,232,0.18),transparent_32%),linear-gradient(145deg,rgba(0,215,232,0.08),rgba(255,255,255,0.025))] p-5">
+          <p className="text-3xl font-semibold leading-tight text-white lg:text-4xl">
+            Sales reports show what sold. TLX shows what people tried to find.
+          </p>
+          <p className="mt-5 text-base leading-8 text-muted lg:text-lg">
+            Operators can see demand forming before the POS records a transaction: goals selected, products compared, picks saved, handoffs sent, and sessions abandoned.
+          </p>
+        </div>
+
+        <div className="mt-5 grid gap-4 sm:grid-cols-2">
+          <div className="rounded-[1.4rem] border border-white/10 bg-white/[0.045] p-5">
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-muted">POS report</p>
+            <p className="mt-4 text-4xl font-semibold text-white">Sold</p>
+            <p className="mt-3 text-sm leading-6 text-muted">Useful after purchase, but late for understanding missed demand.</p>
+          </div>
+          <div className="rounded-[1.4rem] border border-cyan-tlx/24 bg-cyan-tlx/[0.08] p-5 shadow-glow">
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-cyan-tlx">TLX signal</p>
+            <p className="mt-4 text-4xl font-semibold text-white">Wanted</p>
+            <p className="mt-3 text-sm leading-6 text-cyan-50">Useful before purchase, restock, merchandising, and staff coaching.</p>
+          </div>
+        </div>
+
+        <div className="mt-5 space-y-3">
+          {signals.map(([title, text], index) => (
+            <motion.div
+              key={title}
+              initial={{ opacity: 0, transform: "translateX(18px)" }}
+              whileInView={{ opacity: 1, transform: "translateX(0px)" }}
+              viewport={{ once: true, margin: "-90px" }}
+              transition={{ duration: 0.62, delay: index * 0.08, ease: smoothEase }}
+              className="grid grid-cols-[auto_1fr] gap-4 rounded-[1.25rem] border border-white/10 bg-white/[0.04] p-4"
+            >
+              <span className="mt-1 flex h-9 w-9 items-center justify-center rounded-xl border border-cyan-tlx/20 bg-cyan-tlx/[0.08] text-cyan-tlx">
+                <BarChart3 className="h-4 w-4" />
+              </span>
+              <span>
+                <span className="block text-lg font-semibold text-white">{title}</span>
+                <span className="mt-1 block text-sm leading-6 text-muted">{text}</span>
+              </span>
+            </motion.div>
+          ))}
+        </div>
+
+        <div className="mt-5 rounded-[1.35rem] border border-violet-tlx/20 bg-violet-tlx/[0.07] p-5">
+          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-violet-100">Operator outcome</p>
+          <p className="mt-3 text-2xl font-semibold leading-tight text-white">Buy smarter, merchandise faster, coach staff with real intent.</p>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -3310,34 +3333,64 @@ function Footer() {
   );
 }
 
-function Section({ id, eyebrow, title, intro, children }: { id: string; eyebrow: string; title: string; intro: string; children: React.ReactNode }) {
+function Section({ id, title, intro, children }: { id: string; eyebrow: string; title: string; intro: string; children: React.ReactNode }) {
   return (
-    <section id={id} className="relative scroll-mt-28 py-16 sm:scroll-mt-32 sm:py-24 lg:scroll-mt-36 lg:py-28">
+    <section id={id} className="relative scroll-mt-28 py-14 sm:scroll-mt-32 sm:py-20 lg:scroll-mt-36 lg:py-24">
       <div className="section-shell">
-        <div
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-120px" }}
+          variants={{
+            hidden: {},
+            show: {
+              transition: {
+                staggerChildren: 0.16,
+                delayChildren: 0.05
+              }
+            }
+          }}
           className="mb-10 grid max-w-none gap-6 sm:mb-14 lg:grid-cols-[minmax(0,1.12fr)_minmax(320px,0.72fr)] lg:items-end lg:gap-10 xl:gap-14"
         >
-          <div className="section-title-set">
-            <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-cyan-tlx/25 bg-cyan-tlx/8 px-4 py-2 text-xs font-semibold uppercase text-cyan-tlx">
-              <Wand2 className="h-4 w-4" />
-              {eyebrow}
-            </p>
+          <motion.div
+            variants={{
+              hidden: { opacity: 0, transform: "translateY(22px)" },
+              show: { opacity: 1, transform: "translateY(0px)", transition: { duration: 0.98, ease: smoothEase } }
+            }}
+            className="section-title-set"
+          >
             <h2 className="font-display text-[2.55rem] font-semibold leading-[1.08] text-white sm:text-5xl sm:leading-tight lg:text-7xl">{title}</h2>
-          </div>
+          </motion.div>
           <div className="relative overflow-hidden pt-5 lg:py-3 lg:pl-10 xl:pl-14">
-            <span
+            <motion.span
               aria-hidden="true"
+              style={{ transformOrigin: "left center" }}
+              variants={{
+                hidden: { opacity: 0, transform: "scaleX(0)" },
+                show: { opacity: 1, transform: "scaleX(1)", transition: { duration: 0.92, ease: smoothEase, delay: 0.06 } }
+              }}
               className="absolute left-0 top-0 h-[3px] w-full bg-muted shadow-[0_0_22px_rgba(145,163,184,0.74)] lg:hidden"
             />
-            <span
+            <motion.span
               aria-hidden="true"
+              style={{ transformOrigin: "left top" }}
+              variants={{
+                hidden: { opacity: 0, transform: "scaleY(0)" },
+                show: { opacity: 1, transform: "scaleY(1)", transition: { duration: 0.98, ease: smoothEase, delay: 0.08 } }
+              }}
               className="absolute bottom-0 left-0 top-0 hidden w-[3px] bg-muted shadow-[0_0_22px_rgba(145,163,184,0.74)] lg:block"
             />
-            <p className="section-copy-origin max-w-2xl text-lg leading-8 text-muted sm:text-xl sm:leading-9 lg:text-2xl lg:leading-10">
+            <motion.p
+              variants={{
+                hidden: { opacity: 0, transform: "translateX(-26px)", clipPath: "inset(0 100% 0 0)" },
+                show: { opacity: 1, transform: "translateX(0px)", clipPath: "inset(0 0% 0 0)", transition: { duration: 1.24, ease: smoothEase, delay: 0.22 } }
+              }}
+              className="section-copy-origin max-w-2xl text-lg leading-8 text-muted sm:text-xl sm:leading-9 lg:text-2xl lg:leading-10"
+            >
               {intro}
-            </p>
+            </motion.p>
           </div>
-        </div>
+        </motion.div>
         {children}
       </div>
     </section>

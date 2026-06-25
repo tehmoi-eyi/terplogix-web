@@ -68,20 +68,7 @@ select {
   opacity: 1;
   transform: translateX(0);
   clip-path: inset(0 0 0 0);
-}
-
-@supports (animation-timeline: view()) {
-  .section-title-set {
-    animation: sectionTitleRise 1.05s var(--ease-out) both;
-    animation-timeline: view();
-    animation-range: entry 0% cover 24%;
-  }
-
-  .section-copy-origin {
-    animation: sectionCopyFromDivider 1.35s var(--ease-out) both;
-    animation-timeline: view();
-    animation-range: entry 6% cover 32%;
-  }
+  will-change: transform, opacity, clip-path;
 }
 
 .soft-grid {
