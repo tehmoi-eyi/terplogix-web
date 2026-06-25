@@ -36,11 +36,11 @@ type IconComponent = typeof BrainCircuit;
 
 const navItems = [
   ["Product", "#product"],
-  ["Modules", "#modules"],
+  ["Proof", "#proof"],
   ["Experience", "#experience"],
   ["Retail Surfaces", "#customization"],
   ["Analytics", "#analytics"],
-  ["Demo", "#demo"]
+  ["Walkthrough", "#demo"]
 ] as const;
 
 const modules = [
@@ -270,8 +270,8 @@ export function LandingPage() {
       <PlatformOverview />
       <EarlyProductProofBand />
       <ScienceToStoreSection />
+      <RetailWorkflowProof />
       <ModularEcosystem />
-      <OperatingLayerBreak />
       <ExperienceBridge />
       <CustomizationSection />
       <AnalyticsSection />
@@ -364,7 +364,7 @@ function Navbar() {
           href="#demo"
           className="button-press hidden items-center gap-2 rounded-full border border-cyan-tlx/40 bg-cyan-tlx/12 px-5 py-2.5 text-sm font-semibold text-white shadow-glow lg:flex"
         >
-          Request Demo <ArrowRight className="h-4 w-4" />
+          Request a TLX Walkthrough <ArrowRight className="h-4 w-4" />
         </a>
 
         <button
@@ -399,7 +399,7 @@ function Navbar() {
             onClick={(event) => handleMobileNav(event, "#demo")}
             className="mt-2 flex items-center justify-center gap-2 rounded-xl bg-cyan-tlx px-4 py-3 text-sm font-semibold text-void"
           >
-            Request Demo <ArrowRight className="h-4 w-4" />
+            Request a TLX Walkthrough <ArrowRight className="h-4 w-4" />
           </a>
         </motion.div>
       ) : null}
@@ -458,7 +458,7 @@ function Hero() {
 
           <motion.div variants={reveal} className="mt-5 flex flex-col gap-3 sm:flex-row">
             <a href="#demo" className="button-press inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-cyan-tlx to-violet-tlx px-6 py-3.5 text-sm font-bold text-void shadow-glow sm:bg-white">
-              Request a Demo <ArrowRight className="h-4 w-4" />
+              Request a TLX Walkthrough <ArrowRight className="h-4 w-4" />
             </a>
             <a href="#science-to-store" className="button-press inline-flex items-center justify-center gap-2 rounded-full border border-white/18 bg-white/[0.08] px-6 py-3.5 text-sm font-semibold text-white shadow-[0_14px_46px_rgba(0,0,0,0.22)]">
               See How It Works <Radar className="h-4 w-4" />
@@ -487,25 +487,6 @@ function Hero() {
 }
 
 function HeroVisual() {
-  const beams = [
-    ["18%", "35%", 245, -15],
-    ["47%", "34%", 195, 19],
-    ["32%", "63%", 220, 13],
-    ["57%", "61%", 180, -18],
-    ["43%", "49%", 260, 0]
-  ] as const;
-
-  const dataDots = [
-    ["18%", "48%", "0s"],
-    ["28%", "24%", "0.8s"],
-    ["44%", "18%", "1.4s"],
-    ["66%", "29%", "0.3s"],
-    ["79%", "50%", "1.1s"],
-    ["63%", "75%", "1.8s"],
-    ["38%", "80%", "0.5s"],
-    ["52%", "52%", "2.2s"]
-  ] as const;
-
   return (
     <motion.div
       initial={{ opacity: 0, transform: "translateY(18px) scale(0.96)" }}
@@ -516,51 +497,7 @@ function HeroVisual() {
       <div className="pointer-events-none absolute inset-x-8 top-16 h-72 rounded-full bg-cyan-tlx/10 blur-3xl sm:inset-x-16" />
       <div className="pointer-events-none absolute bottom-12 left-1/2 h-56 w-3/4 -translate-x-1/2 rounded-full bg-violet-tlx/10 blur-3xl" />
       <div className="hero-visual-stage absolute inset-0">
-        <Image
-          src="/generated/hero-signal-halo.png"
-          alt=""
-          width={900}
-          height={900}
-          priority
-          unoptimized
-          className="hero-signal-halo pointer-events-none absolute left-1/2 top-1/2 h-[92%] w-[92%] -translate-x-1/2 -translate-y-1/2 object-contain"
-        />
-        <Image
-          src="/generated/hero-network-shell.png"
-          alt=""
-          width={900}
-          height={900}
-          priority
-          unoptimized
-          className="hero-network-shell pointer-events-none absolute left-1/2 top-1/2 h-[82%] w-[82%] -translate-x-1/2 -translate-y-1/2 object-contain"
-        />
-        <div className="hero-orbit-ring hero-orbit-ring-a" />
-        <div className="hero-orbit-ring hero-orbit-ring-b" />
-        {beams.map(([left, top, width, rotate], index) => (
-          <span
-            key={`${left}-${top}`}
-            className="hero-beam"
-            style={{
-              left,
-              top,
-              width,
-              transform: `rotate(${rotate}deg)`,
-              animationDelay: `${index * 0.35}s`
-            }}
-          />
-        ))}
-        {dataDots.map(([left, top, delay], index) => (
-          <span
-            key={`${left}-${top}`}
-            className="hero-data-dot"
-            style={{
-              left,
-              top,
-              animationDelay: delay,
-              backgroundColor: index > 5 ? "#7f3cff" : index > 3 ? "#1977ff" : "#00d7e8"
-            }}
-          />
-        ))}
+        <HeroMatrixLines />
         <Image
           src="/generated/hero-lens-core.png"
           alt="TerpLogix intelligence lens"
@@ -568,12 +505,12 @@ function HeroVisual() {
           height={900}
           priority
           unoptimized
-          className="hero-lens-core pointer-events-none absolute left-1/2 top-1/2 h-[62%] w-[62%] -translate-x-1/2 -translate-y-1/2 object-contain"
+          className="hero-lens-core pointer-events-none absolute left-1/2 top-1/2 z-20 h-[62%] w-[62%] -translate-x-1/2 -translate-y-1/2 object-contain"
         />
         <div className="hero-core-glow" />
       </div>
 
-      <HeroPanel className="left-0 top-8 hidden w-56 sm:block" delay={0.2}>
+      <HeroPanel className="left-0 top-10 hidden w-56 sm:block" delay={0.2}>
         <MiniStatus title="Lab input" value="COA parsed" icon={FileText} />
         <div className="mt-4 rounded-xl border border-white/10 bg-white/5 p-3">
           <div className="mb-2 flex items-center justify-between text-[11px] text-muted">
@@ -585,7 +522,7 @@ function HeroVisual() {
         </div>
       </HeroPanel>
 
-      <HeroPanel className="-right-2 top-12 hidden w-72 sm:block lg:w-80" delay={0.34}>
+      <HeroPanel className="right-0 top-12 hidden w-72 sm:block lg:w-80" delay={0.34}>
         <MiniStatus title="Print output" value="Retail card ready" icon={Printer} />
         <div className="mt-4 overflow-hidden rounded-xl bg-white shadow-[0_18px_46px_rgba(0,0,0,0.34)]">
           <Image
@@ -600,7 +537,7 @@ function HeroVisual() {
         </div>
       </HeroPanel>
 
-      <HeroPanel className="bottom-8 left-0 hidden w-72 md:block lg:w-80" delay={0.46}>
+      <HeroPanel className="bottom-8 left-2 hidden w-72 md:block lg:w-80" delay={0.46}>
         <MiniStatus title="Explore output" value="Product fit explained" icon={TabletSmartphone} />
         <div className="mt-4 h-44 overflow-hidden rounded-xl border border-cyan-tlx/20 bg-obsidian">
           <Image
@@ -615,7 +552,7 @@ function HeroVisual() {
         </div>
       </HeroPanel>
 
-      <HeroPanel className="bottom-2 right-2 hidden w-60 md:block" delay={0.56}>
+      <HeroPanel className="bottom-10 right-4 hidden w-60 md:block" delay={0.56}>
         <MiniStatus title="Serve Queue" value="Handoff ready" icon={Send} />
         <div className="mt-4 rounded-xl border border-white/10 bg-white/5 p-3 text-xs leading-5 text-muted">
           Goal: relaxation<br />
@@ -628,13 +565,17 @@ function HeroVisual() {
   );
 }
 
+function HeroMatrixLines() {
+  return <LogoMatrixPattern className="hero-matrix-lines z-10 opacity-85" gradientId="heroMatrixGradient" linkClassName="hero-logo-matrix-link" nodeClassName="hero-logo-matrix-node" />;
+}
+
 function HeroPanel({ children, className, delay = 0 }: { children: React.ReactNode; className: string; delay?: number }) {
   return (
     <motion.div
       initial={{ opacity: 0, transform: "translateY(18px) scale(0.96)" }}
       animate={{ opacity: 1, transform: "translateY(0px) scale(1)" }}
       transition={{ duration: 0.62, ease: [0.23, 1, 0.32, 1], delay }}
-      className={`hero-panel glass absolute rounded-2xl p-4 ${className}`}
+      className={`hero-panel glass absolute z-30 rounded-2xl p-4 ${className}`}
     >
       {children}
     </motion.div>
@@ -800,8 +741,7 @@ function ProductProofStage() {
   return (
     <div className="relative min-h-[720px] overflow-hidden rounded-[2rem] border border-white/10 bg-[radial-gradient(circle_at_54%_42%,rgba(0,215,232,0.16),transparent_34%),linear-gradient(145deg,rgba(3,8,17,0.86),rgba(8,16,30,0.62))] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_34px_110px_rgba(0,0,0,0.36)] sm:p-6 lg:min-h-[760px]">
       <div className="absolute inset-0 soft-grid opacity-20" />
-      <div className="absolute left-1/2 top-[45%] h-[480px] w-[480px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-tlx/15 orbit-reverse" />
-      <div className="absolute left-1/2 top-[45%] h-[330px] w-[330px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-violet-tlx/18 orbit" />
+      <MatrixBackdrop className="opacity-45" />
 
       <div className="relative z-10 grid h-full gap-5 lg:grid-cols-[0.92fr_1.08fr]">
         <div className="flex flex-col gap-5">
@@ -902,8 +842,7 @@ function ScienceToStoreSection() {
           className="science-store-stage relative overflow-hidden rounded-[2.2rem] border border-cyan-tlx/20 bg-[radial-gradient(circle_at_24%_18%,rgba(0,215,232,0.18),transparent_30%),radial-gradient(circle_at_78%_24%,rgba(127,60,255,0.18),transparent_32%),linear-gradient(145deg,rgba(255,255,255,0.075),rgba(255,255,255,0.018))] p-5 shadow-[0_52px_170px_rgba(0,0,0,0.48)] sm:rounded-[2.8rem] sm:p-8 lg:p-10"
         >
           <div className="absolute inset-0 soft-grid opacity-20" />
-          <div className="absolute left-1/2 top-1/2 h-[760px] w-[760px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-tlx/12 science-store-ring" />
-          <div className="absolute left-1/2 top-1/2 h-[520px] w-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-violet-tlx/14 science-store-ring-reverse" />
+          <MatrixBackdrop className="opacity-35" />
 
           <div className="relative z-10 grid gap-9 xl:grid-cols-[0.4fr_0.6fr]">
             <div className="flex flex-col justify-between gap-10">
@@ -977,7 +916,7 @@ function ScienceToStoreSection() {
 
 function RetailWorkflowProof() {
   return (
-    <section className="relative overflow-hidden py-12 sm:py-18 lg:py-20">
+    <section id="proof" className="relative scroll-mt-28 overflow-hidden py-12 sm:scroll-mt-32 sm:py-18 lg:scroll-mt-36 lg:py-20">
       <div className="section-shell">
         <motion.div
           initial={{ opacity: 0, transform: "translateY(22px)" }}
@@ -987,10 +926,10 @@ function RetailWorkflowProof() {
           className="mb-10 max-w-6xl"
         >
           <h2 className="max-w-6xl font-display text-[2.35rem] font-semibold leading-[1.08] text-white sm:text-5xl lg:text-6xl">
-            Operator workflows and customer journeys, connected by the same product truth.
+            Real workflows powered by one product record.
           </h2>
           <p className="mt-5 max-w-5xl text-lg leading-8 text-muted sm:text-xl sm:leading-9">
-            Sample Library turns saved imports into printable retail materials. Explore turns customer intent into recommendations. Both paths are powered by the same TLX product intelligence layer.
+            Sample Library turns saved imports into printable retail materials. Explore turns shopper intent into recommendations. Both paths stay connected to the same TLX product intelligence.
           </p>
         </motion.div>
 
@@ -1017,10 +956,10 @@ function PrintWorkflowStack() {
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-tlx">Sample Library to print</p>
           <h3 className="mt-3 text-3xl font-semibold leading-tight text-white sm:text-4xl">
-            Saved imports become print-ready cards without rework.
+            Saved imports become print-ready cards.
           </h3>
           <p className="mt-4 text-base leading-7 text-muted">
-            Operators can review saved product records, select visible cards, open a print sheet, and export retail-ready materials from the same product model.
+            Operators review product records, select what should print, and open a polished card sheet without rewriting product copy.
           </p>
           <div className="mt-6 grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
             {[
@@ -1036,22 +975,22 @@ function PrintWorkflowStack() {
           </div>
         </div>
 
-        <div className="relative grid gap-4 sm:block sm:min-h-[460px]">
+        <div className="relative grid gap-4 sm:block sm:min-h-[520px]">
           <ProofScreenshot
             src="/proof/sample-library-select-sanitized.png"
             alt="Sanitized TLX Sample Library print queue"
             width={2250}
             height={1117}
-            className="relative left-0 top-0 z-10 w-full rounded-[1.35rem] shadow-[0_28px_90px_rgba(0,0,0,0.45)] sm:absolute sm:w-[92%]"
+            className="relative left-0 top-0 z-10 h-[260px] w-full rounded-[1.35rem] object-cover object-top shadow-[0_28px_90px_rgba(0,0,0,0.45)] sm:absolute sm:h-[330px] sm:w-[96%]"
           />
           <ProofScreenshot
             src="/proof/printable-straincard-preview.png"
             alt="TLX printable strain card sheet preview"
             width={2252}
             height={798}
-            className="relative bottom-0 right-0 z-20 w-full rounded-[1.35rem] shadow-[0_34px_110px_rgba(0,0,0,0.5)] sm:absolute sm:w-[78%]"
+            className="relative bottom-0 right-0 z-20 h-[230px] w-full rounded-[1.35rem] object-cover object-center shadow-[0_34px_110px_rgba(0,0,0,0.5)] sm:absolute sm:h-[270px] sm:w-[82%]"
           />
-          <div className="absolute bottom-8 left-4 z-30 hidden max-w-[240px] rounded-2xl border border-cyan-tlx/25 bg-cyan-tlx/[0.1] p-4 shadow-glow backdrop-blur md:block">
+          <div className="absolute bottom-10 left-4 z-30 hidden max-w-[260px] rounded-2xl border border-cyan-tlx/25 bg-cyan-tlx/[0.12] p-4 shadow-glow backdrop-blur-xl md:block">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-tlx">Print queue</p>
             <p className="mt-2 text-lg font-semibold leading-tight text-white">Selected cards become a store-ready sheet.</p>
           </div>
@@ -1081,10 +1020,10 @@ function KioskJourneyStack() {
       <div className="relative">
         <p className="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-tlx">Kiosk Explore journey</p>
         <h3 className="mt-3 text-3xl font-semibold leading-tight text-white sm:text-4xl">
-          Customers move from intent to recommendations in a guided flow.
+          Customers move from intent to confident picks.
         </h3>
         <p className="mt-4 text-base leading-7 text-muted">
-          Explore starts broad, captures how the shopper wants to feel, refines the preference profile, and returns chemistry-backed product matches.
+          Explore starts with how the shopper wants to feel, refines the shelf, and returns chemistry-backed product matches.
         </p>
 
         <div className="mt-7 grid gap-3 sm:grid-cols-4">
@@ -1260,11 +1199,9 @@ function PremiumVisual({ kind, compact = false }: { kind: "product" | "kiosk" | 
 function GeneratedVisual({ src, alt, kind, compact = false }: { src: string; alt: string; kind?: "product" | "kiosk" | "display"; compact?: boolean }) {
   return (
     <div className={`premium-visual-scene relative h-full w-full overflow-hidden rounded-[1.25rem] ${compact ? "min-h-24" : ""}`}>
+      <MatrixBackdrop className="opacity-30" />
       <span className="premium-visual-aura" />
       <span className="premium-visual-sheen" />
-      {[0, 1, 2].map((item) => (
-        <span key={item} className={`premium-visual-dot premium-visual-dot-${item + 1}`} />
-      ))}
       <Image
         src={src}
         alt={alt}
@@ -1286,11 +1223,9 @@ function ProductMediaVisual({ compact = false }: { compact?: boolean }) {
 function LateStageVisual({ src, alt, tone = "cyan" }: { src: string; alt: string; tone?: "cyan" | "violet" }) {
   return (
     <div className={`late-proof-scene late-proof-${tone} relative h-full min-h-[180px] w-full overflow-hidden rounded-[1.5rem] sm:min-h-[250px]`}>
+      <MatrixBackdrop className="opacity-25" />
       <span className="late-proof-aura" />
       <span className="late-proof-scan" />
-      {[0, 1, 2, 3].map((item) => (
-        <span key={item} className={`late-proof-dot late-proof-dot-${item + 1}`} />
-      ))}
       <Image
         src={src}
         alt={alt}
@@ -1418,7 +1353,7 @@ function FlowColumn({ title, items, align }: { title: string; items: string[]; a
 
 function ModularEcosystem() {
   return (
-    <Section id="modules" eyebrow="Modular ecosystem" title="One retail brain. Separate tools." intro="Each TLX module has a simple job. Together, they help the store understand products, guide customers, support staff, publish retail materials, and learn from shopper intent.">
+    <Section id="modules" eyebrow="Modular ecosystem" title="Three connected suites. One retail brain." intro="Operators do not need to memorize every TLX module. The system is easiest to understand as product truth, guided service, and synced retail surfaces working together.">
       <div className="glass relative mb-6 overflow-hidden rounded-[2rem] p-6 sm:p-8 lg:p-10">
         <div className="absolute inset-0 soft-grid opacity-25" />
         <div className="absolute -right-28 -top-28 h-80 w-80 rounded-full bg-cyan-tlx/[0.14] blur-3xl" />
@@ -1428,17 +1363,16 @@ function ModularEcosystem() {
             <div className="flex flex-col gap-6 sm:flex-row sm:items-start">
               <div className="relative flex h-36 w-36 flex-none items-center justify-center">
                 <div className="absolute inset-0 rounded-full border border-cyan-tlx/20" />
-                <div className="absolute inset-4 rounded-full border border-violet-tlx/20 orbit" />
                 <div className="absolute inset-8 rounded-full bg-cyan-tlx/[0.07] blur-xl" />
                 <Image src="/brand/icon-nolens-transparent.png" alt="" width={300} height={300} loading="eager" className="h-28 w-28 object-contain drop-shadow-[0_0_26px_rgba(0,215,232,0.22)]" />
                 <Image src="/brand/lens-transparent.png" alt="TerpLogix module hub" width={220} height={220} loading="eager" className="absolute h-12 w-12 object-contain drop-shadow-[0_0_22px_rgba(25,119,255,0.36)]" />
               </div>
               <div>
                 <p className="max-w-3xl text-4xl font-semibold leading-tight text-white lg:text-5xl">
-                  Three connected systems that move product truth through the store.
+                  Product truth, guided service, and synced surfaces.
                 </p>
                 <p className="mt-5 max-w-3xl text-lg leading-8 text-muted">
-                  TLX is easiest to understand in three parts: product intelligence, guided service, and retail surfaces that stay aligned.
+                  The named modules sit underneath these three jobs, so the store gets one connected operating layer instead of another set of disconnected tools.
                 </p>
               </div>
             </div>
@@ -1464,9 +1398,9 @@ function ModularEcosystem() {
       <div className="mt-8 overflow-hidden rounded-[2.25rem] border border-cyan-tlx/20 bg-[radial-gradient(circle_at_18%_0%,rgba(0,215,232,0.16),transparent_34%),radial-gradient(circle_at_78%_18%,rgba(127,60,255,0.12),transparent_34%),linear-gradient(135deg,rgba(0,215,232,0.09),rgba(125,78,255,0.065))] p-6 shadow-[0_34px_110px_rgba(0,0,0,0.32)] sm:p-8 lg:p-10 xl:p-12">
         <div className="grid items-center gap-8 xl:grid-cols-[0.54fr_1.46fr]">
           <div>
-            <h3 className="max-w-3xl text-4xl font-semibold leading-tight text-white lg:text-5xl">The modules work together instead of creating more busywork.</h3>
+            <h3 className="max-w-3xl text-4xl font-semibold leading-tight text-white lg:text-5xl">One flow from lab truth to shopper intent.</h3>
             <p className="mt-5 max-w-3xl text-lg leading-9 text-muted lg:text-xl">
-              Product data becomes clear guidance. Guidance powers customers, staff, menus, signs, and analytics from the same source.
+              Product data becomes clear guidance, guidance powers store surfaces, and every customer interaction feeds the next retail decision.
             </p>
           </div>
           <SystemFlowStrip />
@@ -1477,58 +1411,141 @@ function ModularEcosystem() {
 }
 
 function ModuleCommandCenter() {
-  const orbitLabels = [
-    ["Cortex", "left-[18%] top-[22%]"],
-    ["Rosetta", "right-[16%] top-[26%]"],
-    ["Explore", "left-[10%] top-[50%]"],
-    ["Discover", "right-[10%] top-[50%]"],
-    ["Menus", "left-[24%] bottom-[18%]"],
-    ["Analytics", "right-[22%] bottom-[20%]"],
-    ["Queue", "left-[44%] bottom-[10%]"]
+  const nodes = [
+    ["Cortex", BrainCircuit, "left-[11%] top-[16%]"],
+    ["Rosetta", DatabaseZap, "right-[10%] top-[18%]"],
+    ["Explore", TabletSmartphone, "left-[6%] top-[46%]"],
+    ["Discover", Sparkles, "right-[7%] top-[46%]"],
+    ["Menus", MonitorUp, "left-[18%] bottom-[14%]"],
+    ["Queue", ClipboardCheck, "left-1/2 bottom-[8%] -translate-x-1/2"],
+    ["Analytics", BarChart3, "right-[16%] bottom-[15%]"]
   ] as const;
 
   return (
     <div className="relative min-h-[520px] overflow-hidden rounded-[2rem] border border-white/10 bg-[radial-gradient(circle_at_50%_42%,rgba(0,215,232,0.12),transparent_40%),linear-gradient(145deg,rgba(255,255,255,0.07),rgba(255,255,255,0.025))] p-5 shadow-[0_32px_100px_rgba(0,0,0,0.38)]">
       <div className="absolute inset-0 soft-grid opacity-25" />
-      <div className="absolute left-1/2 top-1/2 h-[68%] w-[68%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-tlx/15 orbit-reverse" />
-      <div className="absolute left-1/2 top-1/2 h-[48%] w-[48%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-violet-tlx/15 orbit" />
-      <div className="module-command-stage relative h-full min-h-[480px]">
-        <Image
-          src="/generated/hero-signal-halo.png"
-          alt=""
-          width={900}
-          height={900}
-          unoptimized
-          className="hero-signal-halo pointer-events-none absolute left-1/2 top-1/2 h-[92%] w-[92%] -translate-x-1/2 -translate-y-1/2 object-contain opacity-70"
-        />
-        <Image
-          src="/generated/hero-network-shell.png"
-          alt="TerpLogix modular ecosystem orbit"
-          width={900}
-          height={900}
-          unoptimized
-          className="hero-network-shell pointer-events-none absolute left-1/2 top-1/2 h-[84%] w-[84%] -translate-x-1/2 -translate-y-1/2 object-contain"
-        />
+      <div className="module-command-stage relative h-full min-h-[480px] overflow-hidden rounded-[1.45rem] border border-white/10 bg-obsidian/35">
+        <ModuleMatrixLines />
         <Image
           src="/generated/hero-lens-core.png"
-          alt=""
+          alt="Camera lens intelligence core"
           width={900}
           height={900}
           unoptimized
-          className="hero-lens-core pointer-events-none absolute left-1/2 top-1/2 h-[38%] w-[38%] -translate-x-1/2 -translate-y-1/2 object-contain"
+          className="hero-lens-core pointer-events-none absolute left-1/2 top-1/2 z-20 h-[28%] w-[28%] -translate-x-1/2 -translate-y-1/2 object-contain"
         />
-        {orbitLabels.map(([label, position], index) => (
-          <span key={label} className={`module-orbit-pill absolute ${position}`} style={{ animationDelay: `${index * -0.55}s` }}>
-            {label}
-          </span>
+        <div className="absolute left-1/2 top-[62%] z-30 -translate-x-1/2 rounded-full border border-cyan-tlx/24 bg-cyan-tlx/[0.1] px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-cyan-100">
+          Intelligence core
+        </div>
+        {nodes.map(([label, Icon, position], index) => (
+          <div key={label} className={`module-matrix-node absolute z-30 ${position}`} style={{ animationDelay: `${index * 0.06}s` }}>
+            <Icon className="h-4 w-4 text-cyan-tlx" />
+            <span>{label}</span>
+          </div>
         ))}
       </div>
     </div>
   );
 }
 
+function ModuleMatrixLines() {
+  return <LogoMatrixPattern className="z-10 opacity-95" gradientId="moduleMatrixGradient" linkClassName="module-matrix-link" nodeClassName="module-logo-node" />;
+}
+
+function LogoMatrixPattern({
+  className = "",
+  gradientId,
+  linkClassName,
+  nodeClassName
+}: {
+  className?: string;
+  gradientId: string;
+  linkClassName: string;
+  nodeClassName: string;
+}) {
+  const ringPaths = [
+    "M50 14 L28 26 L16 50 L28 74 L50 86 L72 74 L84 50 L72 26 Z",
+    "M28 26 L72 26 L84 50 L72 74 L28 74 L16 50 Z",
+    "M50 14 L38 32 L28 26",
+    "M50 14 L62 32 L72 26",
+    "M38 32 L62 32 L72 26",
+    "M38 32 L28 44 L16 50",
+    "M62 32 L72 44 L84 50",
+    "M28 44 L38 68 L28 74",
+    "M72 44 L62 68 L72 74",
+    "M38 68 L50 86 L62 68",
+    "M28 26 L62 68",
+    "M72 26 L38 68",
+    "M16 50 L50 14 L84 50",
+    "M16 50 L50 86 L84 50",
+    "M28 44 L72 44",
+    "M38 32 L62 68",
+    "M62 32 L38 68"
+  ];
+
+  const nodePoints = [
+    [50, 14, 1.75],
+    [28, 26, 1.55],
+    [72, 26, 1.55],
+    [16, 50, 1.65],
+    [84, 50, 1.65],
+    [28, 74, 1.55],
+    [50, 86, 1.75],
+    [72, 74, 1.55],
+    [38, 32, 1.2],
+    [62, 32, 1.2],
+    [28, 44, 1.15],
+    [72, 44, 1.15],
+    [38, 68, 1.2],
+    [62, 68, 1.2]
+  ];
+
+  return (
+    <svg className={`logo-matrix-pattern matrix-lines pointer-events-none absolute inset-0 h-full w-full ${className}`} viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+      <defs>
+        <linearGradient id={gradientId} x1="0" x2="1" y1="0" y2="1">
+          <stop offset="0%" stopColor="#00d7e8" stopOpacity="0.95" />
+          <stop offset="48%" stopColor="#1977ff" stopOpacity="0.74" />
+          <stop offset="100%" stopColor="#7f3cff" stopOpacity="0.88" />
+        </linearGradient>
+      </defs>
+      <g className="logo-matrix-group">
+        {ringPaths.map((d, index) => (
+          <path key={d} d={d} className={`matrix-link logo-matrix-link ${linkClassName}`} style={{ animationDelay: `${index * 0.08}s` }} />
+        ))}
+        {nodePoints.map(([cx, cy, r], index) => (
+          <circle key={`${cx}-${cy}`} cx={cx} cy={cy} r={r} className={`logo-matrix-node ${nodeClassName}`} style={{ animationDelay: `${index * 0.045}s` }} />
+        ))}
+      </g>
+    </svg>
+  );
+}
+
+function MatrixBackdrop({ className = "" }: { className?: string }) {
+  return (
+    <svg className={`matrix-lines pointer-events-none absolute inset-0 z-0 h-full w-full ${className}`} viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+      <defs>
+        <linearGradient id="ambientMatrixGradient" x1="0" x2="1" y1="0" y2="1">
+          <stop offset="0%" stopColor="#00d7e8" stopOpacity="0.62" />
+          <stop offset="55%" stopColor="#1977ff" stopOpacity="0.36" />
+          <stop offset="100%" stopColor="#7f3cff" stopOpacity="0.48" />
+        </linearGradient>
+      </defs>
+      {[
+        "M12 28 L34 18 L56 28 L82 18",
+        "M18 66 L38 48 L60 60 L86 44",
+        "M8 42 L32 44 L50 28 L76 34 L94 24",
+        "M24 82 L44 66 L66 78 L88 64"
+      ].map((d, index) => (
+        <path key={d} d={d} className="matrix-link ambient-matrix-link" style={{ animationDelay: `${index * 0.45}s` }} />
+      ))}
+    </svg>
+  );
+}
+
 function ModuleSuiteCard({ suite, index }: { suite: (typeof moduleSuites)[number]; index: number }) {
   const Icon = suite.icon;
+  const moduleList = suite.modules.map((moduleName) => moduleName.replace("TLX ", "")).join(", ");
 
   return (
     <motion.article
@@ -1549,20 +1566,12 @@ function ModuleSuiteCard({ suite, index }: { suite: (typeof moduleSuites)[number
 
         <SuiteVisual index={index} />
 
-        <div className="mt-6 space-y-3">
-          {suite.modules.map((moduleName, moduleIndex) => {
-            const module = modules.find((item) => item.name === moduleName)!;
-            return (
-              <div key={moduleName} className={moduleIndex > 0 ? "hidden sm:block" : ""}>
-                <SuiteModuleRow module={module} />
-              </div>
-            );
-          })}
-          {suite.modules.length > 1 ? (
-            <p className="rounded-2xl border border-white/10 bg-white/[0.035] px-4 py-3 text-sm font-semibold text-cyan-100 sm:hidden">
-              {suite.modules.length - 1} more connected modules inside this suite
-            </p>
-          ) : null}
+        <div className="mt-6 rounded-[1.35rem] border border-cyan-tlx/18 bg-cyan-tlx/[0.055] p-5">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-tlx">What it means in store</p>
+          <p className="mt-3 text-xl font-semibold leading-tight text-white">{suite.metric}</p>
+          <p className="mt-3 text-sm leading-6 text-cyan-50/82">
+            Includes {moduleList}. The names stay behind the scenes until a buyer wants the detail.
+          </p>
         </div>
 
         <div className="mt-6 border-t border-white/10 pt-5">
@@ -2325,11 +2334,7 @@ function KioskDeviceShowcase() {
   return (
     <div className="relative min-h-[620px] overflow-hidden rounded-[1.8rem] border border-cyan-tlx/20 bg-[radial-gradient(circle_at_50%_38%,rgba(0,215,232,0.18),transparent_34%),radial-gradient(circle_at_70%_58%,rgba(127,60,255,0.16),transparent_38%),linear-gradient(145deg,rgba(3,7,14,0.94),rgba(13,25,43,0.88)_52%,rgba(18,13,42,0.82))]">
       <div className="absolute inset-0 soft-grid opacity-24" />
-      <div className="absolute left-1/2 top-[46%] h-[520px] w-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-tlx/18 bg-cyan-tlx/[0.055] orbit" />
-      <div className="absolute left-1/2 top-[46%] h-[400px] w-[690px] -translate-x-1/2 -translate-y-1/2 rounded-[999px] border border-violet-tlx/18 orbit-reverse" />
-      <div className="absolute left-[22%] top-[25%] h-3 w-3 rounded-full bg-cyan-tlx shadow-glow" />
-      <div className="absolute right-[19%] top-[36%] h-4 w-4 rounded-full bg-violet-tlx shadow-[0_0_34px_rgba(127,60,255,0.48)]" />
-      <div className="absolute bottom-[18%] left-[36%] h-3 w-3 rounded-full bg-emerald-300 shadow-[0_0_34px_rgba(89,255,210,0.42)]" />
+      <KioskMatrixLines />
       <Image
         src="/generated/tlx-small-kiosk-tablet.png"
         alt="TerpLogix tablet kiosk guided discovery mockup"
@@ -2348,6 +2353,29 @@ function KioskDeviceShowcase() {
         <p className="mt-1 text-sm font-semibold leading-snug text-white">Intent and shortlist move to staff.</p>
       </div>
     </div>
+  );
+}
+
+function KioskMatrixLines() {
+  return (
+    <svg className="matrix-lines pointer-events-none absolute inset-0 z-0 h-full w-full opacity-75" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+      <defs>
+        <linearGradient id="kioskMatrixGradient" x1="0" x2="1" y1="0" y2="1">
+          <stop offset="0%" stopColor="#00d7e8" stopOpacity="0.78" />
+          <stop offset="58%" stopColor="#1977ff" stopOpacity="0.45" />
+          <stop offset="100%" stopColor="#7f3cff" stopOpacity="0.58" />
+        </linearGradient>
+      </defs>
+      {[
+        "M50 18 L22 28 L50 50 L78 32 Z",
+        "M50 50 L22 28 L15 74 L50 86 L86 72 L78 32",
+        "M22 28 L86 72",
+        "M78 32 L15 74",
+        "M50 18 L50 86"
+      ].map((d, index) => (
+        <path key={d} d={d} className="matrix-link kiosk-matrix-link" style={{ animationDelay: `${index * 0.2}s` }} />
+      ))}
+    </svg>
   );
 }
 
@@ -2595,7 +2623,7 @@ function CustomerStaffBridgeVisual() {
       className="relative min-h-[640px] overflow-hidden rounded-[2.25rem] border border-cyan-tlx/20 bg-[radial-gradient(circle_at_28%_18%,rgba(0,215,232,0.16),transparent_34%),radial-gradient(circle_at_78%_34%,rgba(127,60,255,0.14),transparent_36%),linear-gradient(145deg,rgba(255,255,255,0.065),rgba(255,255,255,0.018))] p-5 shadow-[0_36px_130px_rgba(0,0,0,0.34)] sm:p-7"
     >
       <div className="absolute inset-0 soft-grid opacity-20" />
-      <div className="absolute left-1/2 top-1/2 h-[560px] w-[560px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-tlx/14 orbit-reverse" />
+      <MatrixBackdrop className="opacity-30" />
       <div className="relative z-10">
         <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
           <div>
@@ -2968,9 +2996,7 @@ function AnalyticsInsightPanel() {
 function AnalyticsDashboard() {
   return (
     <ProductMockupPanel title="Intent Analytics" badge="Demand Signals">
-      <div className="mb-4 h-[220px] overflow-hidden rounded-[1.35rem] border border-violet-tlx/20 bg-violet-tlx/[0.035] sm:h-[330px] sm:rounded-3xl">
-        <LateStageVisual src="/generated/premium-analytics-surface-v2.png" alt="Transparent premium TLX analytics surface" tone="violet" />
-      </div>
+      <AnalyticsEvidenceSurface />
       <div className="grid gap-4 md:grid-cols-2">
         <AnalyticsCard title="Top goals" value="Relaxation" stat="+34%" bars={[76, 64, 52, 44, 38]} />
         <AnalyticsCard title="Most compared" value="Flower Profile" stat="1,248" bars={[42, 88, 62, 74, 55]} />
@@ -2986,6 +3012,107 @@ function AnalyticsDashboard() {
         ))}
       </div>
     </ProductMockupPanel>
+  );
+}
+
+function AnalyticsEvidenceSurface() {
+  const goals = [
+    ["Relaxation", "8 sessions", 92],
+    ["Stress Relief", "3 sessions", 46],
+    ["Calm", "3 sessions", 46],
+    ["Sleep", "3 sessions", 44]
+  ] as const;
+
+  const funnel = [
+    ["Top-3 exposures", "20", "100%", 100],
+    ["Product views", "13", "65%", 65],
+    ["Saved picks", "4", "20%", 20]
+  ] as const;
+
+  return (
+    <div className="mb-4 overflow-hidden rounded-[1.35rem] border border-violet-tlx/20 bg-[radial-gradient(circle_at_22%_0%,rgba(0,215,232,0.15),transparent_34%),linear-gradient(145deg,rgba(4,9,18,0.92),rgba(13,17,33,0.86))] p-4 sm:rounded-3xl sm:p-5">
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-4">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-cyan-tlx">Visual summary</p>
+          <p className="mt-1 text-2xl font-semibold text-white">Demand before the sale</p>
+        </div>
+        <span className="rounded-full border border-cyan-tlx/24 bg-cyan-tlx/[0.1] px-4 py-2 text-xs font-semibold text-cyan-100">Live operator view</span>
+      </div>
+
+      <div className="grid gap-4 xl:grid-cols-[1.02fr_0.98fr]">
+        <div className="rounded-[1.35rem] border border-white/10 bg-void/56 p-4">
+          <div className="mb-4 flex items-center justify-between">
+            <div>
+              <p className="font-semibold text-white">Session activity</p>
+              <p className="mt-1 text-sm text-muted">Explore, kiosk, and Discover sessions.</p>
+            </div>
+            <BarChart3 className="h-5 w-5 text-cyan-tlx" />
+          </div>
+          <div className="flex h-36 items-end gap-3">
+            {[28, 28, 28, 72, 28, 28, 92, 28, 38, 28, 28, 28, 48, 28].map((height, index) => (
+              <span key={index} className="flex-1 rounded-t-full bg-gradient-to-t from-violet-tlx to-cyan-tlx opacity-80" style={{ height: `${height}%` }} />
+            ))}
+          </div>
+        </div>
+
+        <div className="rounded-[1.35rem] border border-white/10 bg-void/56 p-4">
+          <p className="font-semibold text-white">Top customer intentions</p>
+          <p className="mt-1 text-sm text-muted">The goals shoppers selected most often.</p>
+          <div className="mt-5 space-y-3">
+            {goals.map(([label, count, width]) => (
+              <div key={label}>
+                <div className="mb-1 flex items-center justify-between gap-3 text-xs">
+                  <span className="font-semibold text-slate-200">{label}</span>
+                  <span className="text-muted">{count}</span>
+                </div>
+                <div className="h-2 overflow-hidden rounded-full bg-white/10">
+                  <div className="h-full rounded-full bg-gradient-to-r from-cyan-tlx to-blue-tlx" style={{ width: `${width}%` }} />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-4 grid gap-4 md:grid-cols-2">
+        <div className="rounded-[1.35rem] border border-white/10 bg-white/[0.04] p-4">
+          <p className="font-semibold text-white">Product decision funnel</p>
+          <div className="mt-4 space-y-3">
+            {funnel.map(([label, value, percent, width]) => (
+              <div key={label} className="rounded-2xl border border-white/10 bg-void/56 p-3">
+                <div className="flex items-end justify-between gap-3">
+                  <span className="text-sm font-semibold text-slate-200">{label}</span>
+                  <span className="text-xl font-semibold text-white">{value}</span>
+                </div>
+                <div className="mt-2 h-2 overflow-hidden rounded-full bg-white/10">
+                  <div className="h-full rounded-full bg-gradient-to-r from-cyan-tlx via-blue-tlx to-violet-tlx" style={{ width: `${width}%` }} />
+                </div>
+                <p className="mt-1 text-right text-xs text-muted">{percent}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="rounded-[1.35rem] border border-cyan-tlx/20 bg-cyan-tlx/[0.065] p-4">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-tlx">Operator signal</p>
+          <p className="mt-3 text-3xl font-semibold leading-tight text-white">+34% intent lift</p>
+          <p className="mt-3 text-sm leading-6 text-cyan-50/82">
+            Customers searched before purchase. TLX turns that activity into merchandising, restock, and staff coaching signals.
+          </p>
+          <div className="mt-5 grid grid-cols-2 gap-3">
+            {[
+              ["8.2%", "abandoned"],
+              ["71%", "handoff ready"]
+            ].map(([stat, label]) => (
+              <div key={label} className="rounded-2xl border border-white/10 bg-void/50 p-3">
+                <p className="text-xl font-semibold text-white">{stat}</p>
+                <p className="mt-1 text-xs text-muted">{label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -3040,7 +3167,7 @@ function RosettaTranslationPanel() {
   return (
     <div className="glass relative min-h-[520px] overflow-hidden rounded-[2rem] p-5 sm:p-6">
       <div className="absolute inset-0 soft-grid opacity-28" />
-      <div className="absolute left-1/2 top-1/2 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-tlx/15 orbit" />
+      <MatrixBackdrop className="opacity-35" />
       <div className="relative grid h-full gap-5 lg:grid-cols-[0.74fr_0.52fr_0.84fr]">
         <div className="space-y-3">
           <p className="px-1 text-xs font-semibold uppercase tracking-[0.22em] text-cyan-tlx">Incoming retail data</p>
@@ -3051,7 +3178,6 @@ function RosettaTranslationPanel() {
 
         <div className="flex items-center justify-center">
           <div className="scanline relative flex h-52 w-52 items-center justify-center rounded-full border border-cyan-tlx/30 bg-[radial-gradient(circle,rgba(0,215,232,0.16),rgba(0,215,232,0.04)_58%,transparent)] text-center shadow-glow">
-            <div className="absolute inset-8 rounded-full border border-violet-tlx/20 orbit-reverse" />
             <div className="relative">
               <DatabaseZap className="mx-auto h-10 w-10 text-cyan-tlx" />
               <p className="mt-3 text-xl font-semibold text-white">Rosetta</p>
@@ -3115,7 +3241,7 @@ function RosettaDataPacket({ title, text, icon: Icon }: { title: string; text: s
 
 function CTASection() {
   return (
-    <Section id="demo" eyebrow="Request demo" title="See how TLX could work in your store." intro="Walk through product intelligence, guided discovery, staff handoff, retail surfaces, integrations, and analytics in one premium demo.">
+    <Section id="demo" eyebrow="Request demo" title="Request a TLX walkthrough." intro="Walk through how one product record can power guided discovery, staff handoff, print materials, menus, displays, integrations, and intent analytics in your store.">
       <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr]">
         <ClosingDemoPanel />
         <DemoForm />
@@ -3125,23 +3251,23 @@ function CTASection() {
 }
 
 function ClosingDemoPanel() {
-  const proof = [
-    ["1", "Product intelligence layer"],
-    ["8", "Connected modules"],
-    ["4", "Retail surfaces"],
-    ["0", "POS replacement"]
+  const itinerary = [
+    ["01", "Product truth", "COA, product media, and inventory become a usable record.", FileText],
+    ["02", "Guided service", "Explore and Serve Queue turn intent into staff-ready context.", Send],
+    ["03", "Retail surfaces", "Print cards, menus, kiosk, and library views stay aligned.", MonitorUp],
+    ["04", "Intent analytics", "Operators see wanted demand, not only completed sales.", BarChart3]
   ] as const;
 
   return (
-    <div className="glass relative overflow-hidden rounded-[2rem] p-5 sm:p-7">
+    <div className="glass relative overflow-hidden rounded-[2rem] p-5 sm:p-7 lg:p-8">
       <div className="absolute inset-0 soft-grid opacity-25" />
       <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-cyan-tlx/[0.12] blur-3xl" />
       <div className="absolute -bottom-28 left-1/4 h-72 w-72 rounded-full bg-violet-tlx/[0.1] blur-3xl" />
       <div className="relative">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-tlx">Demo command layer</p>
-            <h3 className="mt-3 text-3xl font-semibold leading-tight text-white sm:text-4xl">A premium walkthrough for the full retail system.</h3>
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-tlx">Walkthrough command layer</p>
+            <h3 className="mt-3 text-3xl font-semibold leading-tight text-white sm:text-4xl">A guided look at the full retail flow.</h3>
           </div>
           <span className="flex h-14 w-14 items-center justify-center rounded-2xl border border-cyan-tlx/25 bg-cyan-tlx/[0.1] text-cyan-tlx shadow-glow">
             <Radar className="h-6 w-6" />
@@ -3149,26 +3275,31 @@ function ClosingDemoPanel() {
         </div>
 
         <div className="mt-7 overflow-hidden rounded-[1.6rem] border border-cyan-tlx/20 bg-[radial-gradient(circle_at_22%_16%,rgba(0,215,232,0.14),transparent_36%),linear-gradient(145deg,rgba(4,10,20,0.9),rgba(12,21,40,0.88))] p-4">
-          <div className="grid gap-4 lg:grid-cols-[0.82fr_1.18fr]">
-            <div className="relative min-h-[300px] overflow-hidden rounded-2xl border border-white/10 bg-obsidian/65">
+          <div className="grid gap-4 xl:grid-cols-[0.92fr_1.08fr]">
+            <div className="relative min-h-[420px] overflow-hidden rounded-2xl border border-white/10 bg-[radial-gradient(circle_at_46%_34%,rgba(0,215,232,0.17),transparent_34%),radial-gradient(circle_at_78%_62%,rgba(127,60,255,0.14),transparent_38%),linear-gradient(145deg,rgba(4,9,18,0.92),rgba(10,17,32,0.72))]">
+              <div className="absolute inset-0 soft-grid opacity-20" />
+              <MatrixBackdrop className="opacity-45" />
+              <div className="absolute left-5 top-5 rounded-2xl border border-cyan-tlx/24 bg-void/72 px-4 py-3 backdrop-blur-xl">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cyan-tlx">Walkthrough map</p>
+                <p className="mt-1 text-sm font-semibold text-white">One store flow, end to end.</p>
+              </div>
               <Image
-                src="/proof/kiosk-start.png"
-                alt="TerpLogix branded customer journey start screen"
-                width={900}
-                height={1200}
+                src="/generated/tlx-small-kiosk-tablet.png"
+                alt="TLX Explore kiosk tablet mockup"
+                width={1024}
+                height={1536}
                 unoptimized
-                className="absolute inset-0 h-full w-full scale-105 object-cover object-center opacity-46"
+                className="absolute left-[44%] top-[51%] h-[84%] w-auto -translate-x-1/2 -translate-y-1/2 object-contain drop-shadow-[0_42px_90px_rgba(0,0,0,0.62)]"
               />
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_38%,rgba(0,215,232,0.12),transparent_35%),linear-gradient(180deg,rgba(2,7,16,0.18),rgba(2,7,16,0.76))]" />
               <Image
-                src="/brand/icon-nolens-transparent.png"
+                src="/brand/icon-transparent.png"
                 alt=""
-                width={360}
-                height={360}
+                width={720}
+                height={720}
                 unoptimized
-                className="absolute left-1/2 top-[42%] h-28 w-28 -translate-x-1/2 -translate-y-1/2 object-contain opacity-90 drop-shadow-[0_0_38px_rgba(0,215,232,0.36)]"
+                className="absolute right-8 top-24 h-28 w-28 object-contain opacity-90 drop-shadow-[0_0_44px_rgba(0,215,232,0.34)]"
               />
-              <div className="absolute bottom-5 left-5 w-[64%] rotate-[-3deg] rounded-xl bg-white shadow-[0_28px_70px_rgba(0,0,0,0.5)]">
+              <div className="absolute bottom-6 left-6 w-[70%] rotate-[-3deg] rounded-xl bg-white shadow-[0_28px_70px_rgba(0,0,0,0.5)]">
                 <Image
                   src="/proof/printable-straincard-card.png"
                   alt="Print-ready strain card proof"
@@ -3178,7 +3309,7 @@ function ClosingDemoPanel() {
                   className="h-auto w-full rounded-xl"
                 />
               </div>
-              <div className="absolute right-5 top-5 w-[52%] rotate-[2deg] overflow-hidden rounded-xl border border-cyan-tlx/20 bg-[#050914] shadow-[0_24px_70px_rgba(0,0,0,0.46)]">
+              <div className="absolute right-5 top-24 w-[54%] rotate-[2deg] overflow-hidden rounded-xl border border-cyan-tlx/20 bg-[#050914] shadow-[0_24px_70px_rgba(0,0,0,0.46)]">
                 <Image
                   src="/proof/explore-product-detail-cutout.png"
                   alt="Explore product detail proof"
@@ -3190,15 +3321,29 @@ function ClosingDemoPanel() {
               </div>
             </div>
             <div className="grid gap-3">
-              <ClosingProofSurface title="Customer journey" icon={TabletSmartphone} src="/proof/kiosk-results.png" />
-              <ClosingProofSurface title="Print output" icon={Printer} src="/proof/printable-straincard-card.png" />
-              <ClosingProofSurface title="Operator workflow" icon={Layers3} src="/proof/sample-library-sanitized.png" />
+              {itinerary.map(([step, title, text, Icon]) => (
+                <div key={step} className="grid grid-cols-[auto_1fr] gap-4 rounded-2xl border border-white/10 bg-white/[0.045] p-4">
+                  <span className="flex h-12 w-12 items-center justify-center rounded-2xl border border-cyan-tlx/24 bg-cyan-tlx/[0.1] text-cyan-tlx">
+                    <Icon className="h-5 w-5" />
+                  </span>
+                  <span>
+                    <span className="block text-xs font-semibold uppercase tracking-[0.2em] text-muted">{step}</span>
+                    <span className="mt-1 block text-lg font-semibold text-white">{title}</span>
+                    <span className="mt-1 block text-sm leading-6 text-muted">{text}</span>
+                  </span>
+                </div>
+              ))}
             </div>
           </div>
         </div>
 
         <div className="mt-5 grid grid-cols-2 gap-3">
-          {proof.map(([stat, label]) => (
+          {[
+            ["30 min", "guided walkthrough"],
+            ["4", "retail surfaces"],
+            ["Live", "customer journey"],
+            ["0", "POS replacement"]
+          ].map(([stat, label]) => (
             <div key={label} className="rounded-2xl border border-white/10 bg-white/[0.045] p-4">
               <p className="text-3xl font-semibold text-white">{stat}</p>
               <p className="mt-1 text-sm leading-5 text-muted">{label}</p>
@@ -3207,7 +3352,7 @@ function ClosingDemoPanel() {
         </div>
 
         <div className="mt-5 rounded-3xl border border-cyan-tlx/20 bg-cyan-tlx/[0.07] p-5">
-          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-cyan-tlx">Demo focus</p>
+          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-cyan-tlx">Walkthrough focus</p>
           <p className="mt-3 text-xl font-semibold leading-7 text-white">
             Product intelligence, branded store surfaces, synchronized availability, and customer intent in one operating layer.
           </p>
@@ -3226,7 +3371,7 @@ function ClosingProofSurface({ title, icon: Icon, src }: { title: string; icon: 
       <div>
         <Icon className="mb-3 h-5 w-5 text-cyan-tlx" />
         <p className="font-semibold text-white">{title}</p>
-        <p className="mt-1 text-xs leading-5 text-muted">Demo-ready TLX surface</p>
+        <p className="mt-1 text-xs leading-5 text-muted">Walkthrough-ready TLX surface</p>
       </div>
     </div>
   );
@@ -3251,13 +3396,13 @@ function DemoForm() {
           <p className="mt-6 text-xs font-semibold uppercase tracking-[0.24em] text-cyan-tlx">Request captured</p>
           <h3 className="mt-3 text-3xl font-semibold leading-tight text-white">We will tailor the walkthrough around your retail operation.</h3>
           <p className="mt-4 text-base leading-7 text-muted">
-            Expect a focused demo around product intelligence, customer discovery, staff handoff, branded retail surfaces, and analytics.
+            Expect a focused walkthrough around product intelligence, customer discovery, staff handoff, branded retail surfaces, and analytics.
           </p>
           <div className="mt-6 grid gap-3 sm:grid-cols-2">
             {["Store workflow", "Product data", "Customer surfaces", "Analytics goals"].map((item) => (
               <div key={item} className="rounded-2xl border border-white/10 bg-white/[0.045] p-4">
                 <p className="text-sm font-semibold text-white">{item}</p>
-                <p className="mt-1 text-xs text-muted">Demo focus</p>
+                <p className="mt-1 text-xs text-muted">Walkthrough focus</p>
               </div>
             ))}
           </div>
@@ -3284,7 +3429,7 @@ function DemoForm() {
         <textarea name="message" rows={5} className="w-full resize-none rounded-2xl border border-white/10 bg-white/[0.045] px-4 py-3 text-white outline-none transition-colors duration-200 placeholder:text-muted focus:border-cyan-tlx/45 focus:bg-cyan-tlx/[0.04]" placeholder="Tell us what you want TLX to help with." />
       </label>
       <button type="submit" className="button-press mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-bold text-void shadow-glow sm:w-auto">
-        {sent ? "Request Captured" : "Request Demo"} <ArrowRight className="h-4 w-4" />
+        {sent ? "Request Captured" : "Request a TLX Walkthrough"} <ArrowRight className="h-4 w-4" />
       </button>
       {sent ? <p className="mt-4 text-sm text-cyan-100">Request received. We will follow up with a tailored walkthrough of the TLX operating layer.</p> : null}
     </form>
@@ -3320,7 +3465,7 @@ function Footer() {
             />
           </div>
           <div className="grid grid-cols-2 gap-3 text-sm text-muted">
-            {[...navItems, ["Request Demo", "#demo"]].map(([label, href]) => (
+            {[...navItems, ["Request Walkthrough", "#demo"]].map(([label, href]) => (
               <a key={`${label}-${href}`} href={href} className="transition-colors duration-200 hover:text-white">
                 {label}
               </a>

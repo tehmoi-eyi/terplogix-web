@@ -164,6 +164,114 @@ select {
   pointer-events: none;
 }
 
+.matrix-lines {
+  overflow: visible;
+}
+
+.matrix-link {
+  fill: none;
+  stroke: url("#heroMatrixGradient");
+  stroke-width: 1.15;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.68;
+  stroke-dasharray: 118;
+  stroke-dashoffset: 118;
+  vector-effect: non-scaling-stroke;
+  animation: matrixTrace 8.8s var(--ease-in-out) infinite;
+}
+
+.module-matrix-link {
+  stroke: url("#moduleMatrixGradient");
+  stroke-width: 1.08;
+  opacity: 0.78;
+  stroke-dasharray: 126;
+  stroke-dashoffset: 126;
+}
+
+.kiosk-matrix-link {
+  stroke: url("#kioskMatrixGradient");
+  stroke-width: 0.74;
+  opacity: 0.54;
+}
+
+.ambient-matrix-link {
+  stroke: rgba(0, 215, 232, 0.42);
+  stroke-width: 0.56;
+  opacity: 0.3;
+}
+
+.logo-matrix-group {
+  transform-origin: center;
+}
+
+.logo-matrix-link {
+  filter: drop-shadow(0 0 8px rgba(0, 215, 232, 0.28));
+}
+
+.logo-matrix-node {
+  fill: #00d7e8;
+  opacity: 0.9;
+  filter: drop-shadow(0 0 9px rgba(0, 215, 232, 0.72));
+  transform-origin: center;
+  animation: logoNodeGlow 7.6s var(--ease-in-out) infinite;
+}
+
+.logo-matrix-node:nth-of-type(4n + 1) {
+  fill: #7f3cff;
+  filter: drop-shadow(0 0 9px rgba(127, 60, 255, 0.72));
+}
+
+.logo-matrix-node:nth-of-type(4n + 2) {
+  fill: #1977ff;
+  filter: drop-shadow(0 0 9px rgba(25, 119, 255, 0.72));
+}
+
+.hero-logo-matrix-link {
+  stroke-width: 1.22;
+  opacity: 0.62;
+}
+
+.module-logo-node {
+  opacity: 0.95;
+}
+
+.hero-logo-matrix-node {
+  opacity: 0.74;
+}
+
+.matrix-node {
+  fill: #00d7e8;
+  opacity: 0.88;
+  filter: drop-shadow(0 0 8px rgba(0, 215, 232, 0.78));
+  animation: matrixNodePulse 6.8s var(--ease-in-out) infinite;
+}
+
+.ambient-matrix-node {
+  opacity: 0.5;
+}
+
+.module-matrix-node {
+  display: flex;
+  align-items: center;
+  gap: 0.48rem;
+  border: 1px solid rgba(0, 215, 232, 0.26);
+  border-radius: 999px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.035)),
+    rgba(5, 10, 20, 0.78);
+  padding: 0.72rem 0.95rem;
+  color: #f7fbff;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.32), 0 0 22px rgba(0, 215, 232, 0.12);
+  backdrop-filter: blur(16px);
+  opacity: 0;
+  animation: matrixNodeIn 1.05s var(--ease-out) forwards;
+}
+
 .hero-orbit-ring {
   position: absolute;
   left: 50%;
@@ -544,6 +652,50 @@ select {
   50% {
     opacity: 1;
     transform: translate(-50%, -50%) scale(1.14);
+  }
+}
+
+@keyframes matrixTrace {
+  0% {
+    stroke-dashoffset: 118;
+    opacity: 0.12;
+  }
+  38%,
+  74% {
+    stroke-dashoffset: 0;
+    opacity: 0.82;
+  }
+  100% {
+    stroke-dashoffset: -118;
+    opacity: 0.12;
+  }
+}
+
+@keyframes logoNodeGlow {
+  0%,
+  100% {
+    opacity: 0.62;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes matrixNodePulse {
+  0%,
+  100% {
+    opacity: 0.46;
+    transform: scale(0.88);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.12);
+  }
+}
+
+@keyframes matrixNodeIn {
+  to {
+    opacity: 1;
   }
 }
 
